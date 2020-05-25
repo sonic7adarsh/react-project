@@ -39,18 +39,14 @@ class Search extends Component {
                 config: this.state.controls[key]
             })
         }
-        // console.log(searchElementArray)
 
-        let search = searchElementArray.map(formElement => (
+        let search = searchElementArray.map(searchElement => (
             <Input
-                key= {formElement.id}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                value={formElement.config.value}
-                // inValid={!formElement.config.valid}
-                // shouldValidate={formElement.config.validation}
-                // touched={formElement.config.touched}
-                changed={(event) => this.inputChangedHandler(event,formElement.id)}/>
+                key= {searchElement.id}
+                elementType={searchElement.config.elementType}
+                elementConfig={searchElement.config.elementConfig}
+                value={searchElement.config.value}
+                changed={(event) => this.inputChangedHandler(event,searchElement.id)}/>
           
         ))
 

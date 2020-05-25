@@ -26,9 +26,15 @@ const input = (props) => {
             inputElement=<select 
             className={inputClasses.join(' ')} 
             value={props.value}
-            {...props.elementConfig} 
-            onChange={props.changed}
-        />
+            onChange={props.changed}>
+                {props.elementConfig.options.map(option => (
+                                <option 
+                                        key={option.value}
+                                        value={option.value}>
+                                        {option.displayValue}
+                                </option>
+                            ))}
+            </select>
         break;
         default:
             inputElement = <input
