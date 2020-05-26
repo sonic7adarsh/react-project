@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
-import qs from 'qs'
 
 export const signupStart = () => {
     return {
@@ -10,7 +9,7 @@ export const signupStart = () => {
 
 export const signupSuccess = () => {
     return{
-        type: actionTypes.SIGNUP_START
+        type: actionTypes.SIGNUP_SUCCESS
     }
 }
 
@@ -18,7 +17,6 @@ export const signupSuccess = () => {
 export const signupFail = () => {
     return{
         type: actionTypes.SIGNUP_FAIL,
-        // error: error
     }
 }
 
@@ -38,10 +36,9 @@ export const signup = (email,password, confirmPassword,firstName,middleName,last
         axios({
             method: 'post',
             url: 'http://localhost:8080/e-commerce/register/register-customer',
-            data:qs.stringify(signupData) ,
+            data: signupData,
             headers: {
                 'Content-Type': 'application/json',
-                // 'Accept-language'
             }})
         .then(
             response => {
@@ -50,7 +47,7 @@ export const signup = (email,password, confirmPassword,firstName,middleName,last
         )
         .catch(
             err => {
-                console.log(err)
+                console.log(err.response.data.message)
                 dispatch(signupFail())
             }
         )

@@ -2,7 +2,7 @@ import * as actions from '../action/actionTypes'
 import {updatedObject} from '../../shared/utility'
 
 const initialState = {
-    products: [],
+    profileData: [],
     isLoading: false,
     error: null
 }
@@ -13,7 +13,7 @@ const fetchStart = (state,action) => {
 
 const fetchSuccess = (state,action) => {
     return updatedObject(state, {
-        products: action.products,
+        profileData: action.data,
         loading: false
     })
 }
@@ -24,11 +24,11 @@ const fetchFail = (state,action) => {
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
-        case actions.PRODUCT_FETCH_START:
+        case actions.PROFILE_FETCH_START:
             return fetchStart(state,action)
-        case actions.PRODUCT_FETCH_SUCCESS:
+        case actions.PROFILE_FETCH_SUCCESS:
             return fetchSuccess(state,action)
-        case actions.PRODUCT_FETCH_FAIL:
+        case actions.PROFILE_FETCH_FAIL:
             return fetchFail(state,action)
         default:
             return state

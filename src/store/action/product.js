@@ -7,9 +7,10 @@ export const fetchStart = () => {
     }
 }
 
-export const fetchSuccess = () => {
+export const fetchSuccess = (products) => {
     return{
-        type: actionTypes.PRODUCT_FETCH_SUCCESS
+        type: actionTypes.PRODUCT_FETCH_SUCCESS,
+        products: products
     }
 }
 
@@ -22,13 +23,19 @@ export const fetchFail = () => {
 export const product =  () => {
     return dispatch => {
         dispatch(fetchStart())
-        axios.get('http://localhost:8080/e-commerce/customer/home/all-products')
+        axios.get('http://localhost:8080/e-commerce/register/home/product/18')
         .then(response => {
-            console.log(response.data)
-            dispatch(fetchSuccess())
-        })
-        .catch( err => {
-            console.log(err)
+            const fetcedProducts = [];
+            for( let key in response.data){
+                fetcedProducts.push({
+                    ...response.data[key],
+                    id: key
+                })
+            }
+            console.log(fetcedProducts)
+            dispatch(fetchSuccess(fetcedProducts))
+        }).catch( err => {
+            console.log(err.response)
             dispatch(fetchFail())
         })
     }

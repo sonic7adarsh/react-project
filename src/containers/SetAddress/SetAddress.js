@@ -1,10 +1,12 @@
-import React, {Component} from 'react'
-import {updatedObject} from '../../../shared/utility'
-import Input from '../../../components/UI/Input/Input'
-import Button from '../../../components/UI/Button/Button'
-import classes from './Address.module.css'
+import React,{Component} from 'react'
+import {updatedObject} from '../../shared/utility'
+import Input from '../../components/UI/Input/Input'
+import Button from '../../components/UI/Button/Button'
+import classes from './SetAddress.module.css'
+import axios from 'axios'
+import {connect} from 'react-redux'
 
-class Address extends Component {
+class SetAddress extends Component {
     state = {
         controls: {
             city:{
@@ -49,7 +51,7 @@ class Address extends Component {
             zipcode:{
                 elementType: 'input',
                 elementConfig: {
-                    type: 'tel',
+                    type: 'text',
                     placeholder: 'Please enter your ZipCode'
                 },
                 value: '',
@@ -62,7 +64,7 @@ class Address extends Component {
             address:{
                 elementType: 'textarea',
                 elementConfig: {
-                    type: 'address',
+                    type: 'text',
                     placeholder: 'Please enter the address'
                 },
                 value: '',
@@ -103,6 +105,32 @@ class Address extends Component {
        })
     }
 
+    onSubmitHandler = (event) => {
+        event.preventDefault()
+        console.log('setAddress ke andar se bol rha hu')
+        console.log(this.props.token)
+        axios({
+            method: 'Post',
+            url: 'http://localhost:8080/e-commerce/customer/home/save-address',
+            data:{
+                state: this.state.controls.state.value,
+                city: this.state.controls.city.value,
+                country: this.state.controls.country.value,
+                address: this.state.controls.address.value,
+                zipCode: this.state.controls.zipcode.value,
+                label: this.state.controls.label.value
+            },
+            headers: {'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${this.props.token}`
+                }
+            })
+        .then(response => {
+            console.log(response)
+            console.log('bhai lagta hai success')
+        }).catch( err => {
+            console.log(err.response)
+        })
+    }
 
     render(){
         let addressElementArray = [];
@@ -127,7 +155,7 @@ class Address extends Component {
                 <p>Please Enter the Address Detail</p>
                 <form>
                     {address}
-                    <Button btnType ="Success">Submit</Button>
+                    <Button btnType ="Success" clicked={this.onSubmitHandler}>Submit</Button>
                 </form>
                 
             </div>
@@ -135,4 +163,10 @@ class Address extends Component {
     }
 }
 
-export default Address
+const mapSateToProps = state => {
+    return{
+        token: state.auth.token
+    }
+}
+
+export default connect(mapSateToProps)(SetAddress)

@@ -12,3 +12,7 @@ export{
 export{
     signup
 } from './signup'
+
+export {
+    fetch
+} from './profile'

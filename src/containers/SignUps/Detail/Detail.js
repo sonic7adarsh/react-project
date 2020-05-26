@@ -153,7 +153,7 @@ class Detail extends Component {
         ))
         let homePath = null
         if(this.state.isSignup){
-            homePath = <Redirect to = "/" /> 
+            homePath = <Redirect to = "/login" /> 
         }
 
         return(

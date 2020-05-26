@@ -9,12 +9,14 @@ const navigationItems = (props) => (
         <NavigationItem link="/" exact>Home</NavigationItem>
         <NavigationItem link="/orders" >Orders</NavigationItem>
         {props.isAuth
-        ? <NavigationItem link="/wish-list" >Wish List</NavigationItem>
-        : <NavigationItem link="/sign-up" >Sign Up</NavigationItem>}
+        ? <NavigationItem link="/my-profile" >My Profile</NavigationItem>
+        : <NavigationItem link="/items" >Trending Items</NavigationItem>}
         {props.isAuth 
         ? <NavigationItem link="/logout" >Logout</NavigationItem>
         : <NavigationItem link="/login" >Login</NavigationItem>}
-        
+        {props.isAuth 
+        ? <NavigationItem link="/add-address" >Add Address</NavigationItem>
+        : null}
     </ul>
 );
 

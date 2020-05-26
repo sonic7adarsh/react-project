@@ -10,6 +10,7 @@ import thunk from 'redux-thunk';
 import authReducer from './store/reducer/auth'
 import productReducer from './store/reducer/product'
 import signupReducer from './store/reducer/signup'
+import profileReducer from './store/reducer/profile'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
@@ -18,7 +19,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
     auth: authReducer,
     product: productReducer,
-    signup: signupReducer
+    signup: signupReducer,
+    profile: profileReducer
 });
 
 

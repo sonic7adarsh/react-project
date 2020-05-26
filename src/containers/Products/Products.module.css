@@ -1,0 +1,10 @@
+.Products{
+    align-items: center;
+    margin-left: 60px;
+}
+
+@media(max-width: 500px){
+    .Products{
+        align-items: center;
+    }
+}
