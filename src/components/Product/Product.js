@@ -4,6 +4,8 @@ import classes from './Product.module.css'
 
 class Product extends Component {
     render(){
+        console.log('product')
+        console.log(this.props)
         return(
         <div className={classes.Product}>
             <img src={productImage} alt="product data" />

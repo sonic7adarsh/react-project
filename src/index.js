@@ -11,6 +11,7 @@ import authReducer from './store/reducer/auth'
 import productReducer from './store/reducer/product'
 import signupReducer from './store/reducer/signup'
 import profileReducer from './store/reducer/profile'
+import variationReducer from './store/reducer/productVariation'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     auth: authReducer,
     product: productReducer,
     signup: signupReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    variation: variationReducer
 });
 
 

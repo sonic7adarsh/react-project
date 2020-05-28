@@ -1,10 +1,13 @@
-import React, {Component} from 'react'
-import {updatedObject} from '../../../shared/utility'
-import Input from '../../../components/UI/Input/Input'
+import React,{Component} from 'react'
+import {connect} from 'react-redux'
 import Button from '../../../components/UI/Button/Button'
-import classes from './Address.module.css'
+import Input from '../../../components/UI/Input/Input'
+import classes from './EditAddress.module.css'
+import {updatedObject} from '../../../shared/utility'
+import {Redirect} from 'react-router'
+import axios from 'axios'
 
-class Address extends Component {
+class EditAddress extends Component {
     state = {
         controls: {
             city:{
@@ -49,7 +52,7 @@ class Address extends Component {
             zipcode:{
                 elementType: 'input',
                 elementConfig: {
-                    type: 'tel',
+                    type: 'text',
                     placeholder: 'Please enter your ZipCode'
                 },
                 value: '',
@@ -62,7 +65,7 @@ class Address extends Component {
             address:{
                 elementType: 'textarea',
                 elementConfig: {
-                    type: 'address',
+                    type: 'text',
                     placeholder: 'Please enter the address'
                 },
                 value: '',
@@ -89,7 +92,7 @@ class Address extends Component {
             },
             
         },
-        isSignup: false
+        isUpdated: false
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -103,6 +106,32 @@ class Address extends Component {
        })
     }
 
+    onSubmitHandler = (addressId) => {
+        // event.preventDefault()
+        axios({
+            method: 'Put',
+            url: `http://localhost:8080/e-commerce/customer/home/update-address/${addressId}`,
+            data:{
+                state: this.state.controls.state.value,
+                city: this.state.controls.city.value,
+                country: this.state.controls.country.value,
+                address: this.state.controls.address.value,
+                zipCode: this.state.controls.zipcode.value,
+                label: this.state.controls.label.value
+            },
+            headers: {'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${this.props.token}`
+                }
+            })
+        .then(response => {
+            this.setState({
+                isUpdated: true
+            })
+            console.log(response)
+        }).catch( err => {
+            console.log(err.response)
+        })
+    }
 
     render(){
         let addressElementArray = [];
@@ -122,17 +151,46 @@ class Address extends Component {
                 changed={(event) => this.inputChangedHandler(event,addressElement.id)}/>
           
         ))
-        return(
-            <div className={classes.Detail}>
-                <p>Please Enter the Address Detail</p>
-                <form>
-                    {address}
-                    <Button btnType ="Success">Submit</Button>
-                </form>
-                
-            </div>
-        )
+
+        let content = null
+        if(!this.state.isUpdated)
+        {
+            content =(
+                <div className={classes.Detail}>
+                    <p>Please Enter the Address Detail For Updation</p>
+                    <form>
+                        {address}
+                    </form>
+                        {this.props.addressData.map(address => (
+                         <ul key={address.id}>
+                        <li><span>{address.state}</span></li>
+                        <li><span>{address.city}</span></li>
+                        <li><span>{address.country}</span></li>
+                        <li><span>{address.address}</span></li>
+                        <li><span>{address.zipCode}</span></li>
+                        <li><span>{address.label}</span></li>
+                        <div>
+                            <Button btnType = "Danger" clicked={this.onSubmitHandler.bind(this, address.id)}>Update Address {address.label}</Button>
+                        </div>
+                     </ul>
+                    ))}
+                    
+                    
+                </div>
+            ) 
+        }else{
+            content = <Redirect to= "/updated"/>
+        }
+        return content
     }
 }
 
-export default Address
+const mapSateToProps = state => {
+    return{
+        token: state.auth.token,
+        addressData: state.profile.addressData
+    }
+}
+
+
+export default connect(mapSateToProps)(EditAddress)

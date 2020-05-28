@@ -10,9 +10,14 @@ export{
 } from './product'
 
 export{
+    productVariation
+} from './productVariation'
+
+export{
     signup
 } from './signup'
 
 export {
-    fetch
+    fetch,
+    addressFetch
 } from './profile'

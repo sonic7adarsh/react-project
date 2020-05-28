@@ -8,13 +8,24 @@
     box-sizing: border-box;
 }
 
+.Detail Input{
+    margin-top: 30px;
+}
+
 .Detail textarea{
     margin-top: 30px;
     margin-bottom: 30px;
 }
 
-.Detail Input{
-    margin-top: 30px;
+.Detail ul {
+    list-style: none;
+    border-top: 1px solid black;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.Detail ul li{
+padding-top: 10px;
 }
 
 @media(min-width: 600px){

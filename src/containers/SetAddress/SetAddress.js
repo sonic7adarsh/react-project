@@ -5,6 +5,7 @@ import Button from '../../components/UI/Button/Button'
 import classes from './SetAddress.module.css'
 import axios from 'axios'
 import {connect} from 'react-redux'
+import { Redirect } from 'react-router'
 
 class SetAddress extends Component {
     state = {
@@ -91,7 +92,7 @@ class SetAddress extends Component {
             },
             
         },
-        isSignup: false
+        isUpdated: false
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -107,8 +108,6 @@ class SetAddress extends Component {
 
     onSubmitHandler = (event) => {
         event.preventDefault()
-        console.log('setAddress ke andar se bol rha hu')
-        console.log(this.props.token)
         axios({
             method: 'Post',
             url: 'http://localhost:8080/e-commerce/customer/home/save-address',
@@ -125,8 +124,10 @@ class SetAddress extends Component {
                 }
             })
         .then(response => {
+            this.setState({
+                isUpdated: true
+            })
             console.log(response)
-            console.log('bhai lagta hai success')
         }).catch( err => {
             console.log(err.response)
         })
@@ -150,22 +151,31 @@ class SetAddress extends Component {
                 changed={(event) => this.inputChangedHandler(event,addressElement.id)}/>
           
         ))
-        return(
-            <div className={classes.Detail}>
-                <p>Please Enter the Address Detail</p>
-                <form>
-                    {address}
-                    <Button btnType ="Success" clicked={this.onSubmitHandler}>Submit</Button>
-                </form>
-                
-            </div>
-        )
+
+        let content = null
+        if(!this.state.isUpdated)
+        {
+            content =(
+                <div className={classes.Detail}>
+                    <p>Please Enter the Address Detail</p>
+                    <form>
+                        {address}
+                        <Button btnType ="Success" clicked={this.onSubmitHandler}>Submit</Button>
+                    </form>
+                    
+                </div>
+            ) 
+        }else{
+            content = <Redirect to= "/updated"/>
+        }
+        return content
     }
 }
 
 const mapSateToProps = state => {
     return{
-        token: state.auth.token
+        token: state.auth.token,
+        addressData: state.profile.addressData
     }
 }
 

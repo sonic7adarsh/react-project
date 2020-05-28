@@ -1,4 +1,4 @@
-.Detail{
+.Link{
     margin: 150px auto;
     text-align: center;
     width: 40%;
@@ -8,17 +8,12 @@
     box-sizing: border-box;
 }
 
-.Detail Input{
+.Link Input{
     margin-top: 30px;
-}
-
-.Detail textarea{
-    margin-top: 30px;
-    margin-bottom: 30px;
 }
 
 @media(min-width: 600px){
-    .Detail{
+    .Link{
         width: 500px;
     }
 }

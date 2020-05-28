@@ -2,11 +2,9 @@ import React, {Component} from 'react'
 import * as actions from '../../../store/action/index'
 import {connect} from 'react-redux'
 import Spinner from '../../../components/UI/Spinner/Spinner'
-import Profile from '../Profile/Profile'
+import Profile from './Profile/Profile'
 import classes from './CustomerProfile.module.css'
-import Button from '../../../components/UI/Button/Button'
-import CustomerAddress from '../../UserAddress/CustomerAddress/CustomerAddress'
-import {Route} from 'react-router-dom'
+import CustomerAddress from './CustomerAddress/CustomerAddress'
 
 class CustomerProfile extends Component {
    
@@ -14,10 +12,7 @@ class CustomerProfile extends Component {
         this.props.profileData(this.props.token);
     }
 
-    clickHandler = () => {
-        this.props.history.push('/my-profile/edit');
-    }
-
+   
     render(){
         let profile = this.props.data.map(profile => (
             <Profile 
@@ -38,10 +33,7 @@ class CustomerProfile extends Component {
             <div className={classes.CustomerProfile}>
                 {data}
                 {profile}
-                <Button btnType="Success" clicked={this.clickHandler}>Show address</Button>
-                <Route 
-                        path={this.props.match.path + '/edit'} 
-                        component={CustomerAddress}/>
+                <CustomerAddress/>
             </div>
         )
     }

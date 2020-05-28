@@ -67,6 +67,12 @@ class Auth extends Component {
         this.props.onAuth(this.state.controls.email.value,  this.state.controls.password.value)
     }
 
+    resendHandler = (event) => {
+        event.preventDefault()
+        this.props.history.push('/resend-link');
+
+    }
+
 
 
     render(){
@@ -112,6 +118,7 @@ class Auth extends Component {
                 <div>
                     <Button btnType="Danger" clicked= {this.signupCustomerHandler}>Sign up as Customer</Button>
                     <Button btnType="Danger" clicked= {this.signupSellerHandler}>Sign up as Seller</Button>
+                    <Button btnType="Danger" clicked= {this.resendHandler}>Resend Activation Link</Button>
                 </div>
             </div>
         )

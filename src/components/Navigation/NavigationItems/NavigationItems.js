@@ -17,6 +17,9 @@ const navigationItems = (props) => (
         {props.isAuth 
         ? <NavigationItem link="/add-address" >Add Address</NavigationItem>
         : null}
+        {props.isAuth 
+        ? <NavigationItem link="/edit-profile" >Edit Profile</NavigationItem>
+        : null}
     </ul>
 );
 

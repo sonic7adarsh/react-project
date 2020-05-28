@@ -15,9 +15,17 @@
     text-align: center;
 }
 
+@media(max-width: 810px){
+    .CustomerProfile{
+        margin-left: 200px;
+        width: 50%;
+    }
+}
+
 @media(max-width: 600px){
     .CustomerProfile{
         margin-left: 100px;
         width: 50%;
     }
 }
+

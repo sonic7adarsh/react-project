@@ -1,4 +1,4 @@
-.Detail{
+.EditProfile{
     margin: 150px auto;
     text-align: center;
     width: 40%;
@@ -8,17 +8,12 @@
     box-sizing: border-box;
 }
 
-.Detail textarea{
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-.Detail Input{
+.EditProfile Input{
     margin-top: 30px;
 }
 
 @media(min-width: 600px){
-    .Detail{
+    .EditProfile{
         width: 500px;
     }
 }

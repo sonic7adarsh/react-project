@@ -3,6 +3,7 @@ import {updatedObject} from '../../shared/utility'
 
 const initialState = {
     profileData: [],
+    addressData:[],
     isLoading: false,
     error: null
 }
@@ -22,6 +23,21 @@ const fetchFail = (state,action) => {
     return updatedObject(state, {error: action.error, loading: false})
 }
 
+const addressFetchStart = (state,action) => {
+    return updatedObject(state, {error: null, loading: true})
+}
+
+const addressFetchSuccess = (state,action) => {
+    return updatedObject(state, {
+        addressData: action.data,
+        loading: false
+    })
+}
+
+const addressFetchFail = (state,action) => {
+    return updatedObject(state, {error: action.error, loading: false})
+}
+
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case actions.PROFILE_FETCH_START:
@@ -30,6 +46,12 @@ const reducer = (state = initialState, action) => {
             return fetchSuccess(state,action)
         case actions.PROFILE_FETCH_FAIL:
             return fetchFail(state,action)
+        case actions.ADDRESS_FETCH_START:
+            return addressFetchStart(state,action)
+        case actions.ADDRESS_FETCH_SUCCESS:
+            return addressFetchSuccess(state,action)
+        case actions.ADDRESS_FETCH_FAIL:
+            return addressFetchFail(state,action)
         default:
             return state
     }
