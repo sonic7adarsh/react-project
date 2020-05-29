@@ -20,6 +20,24 @@ const navigationItems = (props) => (
         {props.isAuth 
         ? <NavigationItem link="/edit-profile" >Edit Profile</NavigationItem>
         : null}
+
+        {props.isAuth 
+        ? <NavigationItem link="/admin/sellers" >All Sellers</NavigationItem>
+        : null}
+        {props.isAuth 
+        ? <NavigationItem link="/admin/customers" >All Customers</NavigationItem>
+        : null}
+         {props.isAuth 
+        ? <NavigationItem link="/add-metadata" >MetaData Field</NavigationItem>
+        : null}
+
+        {props.isAuth 
+        ? <NavigationItem link="/get-metadata" >Get MetaData</NavigationItem>
+        : null}
+
+        {props.isAuth 
+        ? <NavigationItem link="/get-category" >Get Category</NavigationItem>
+        : null}
     </ul>
 );
 

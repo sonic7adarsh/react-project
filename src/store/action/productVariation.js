@@ -20,11 +20,17 @@ export const variationFetchFail = () => {
     }
 }
 
-export const productVariation =  (id) => {
+export const productVariation =  (id, token) => {
     return dispatch => {
         console.log('variation fetch start')
         dispatch(variationFetchStart())
-        axios.get(`http://localhost:8080/e-commerce/customer/home/product/${id}`)
+        axios({
+            method: 'Get',
+            url: `http://localhost:8080/e-commerce/customer/home/product/${id}`,
+            headers: {
+                    'Authorization' : `Bearer ${token}`
+                }
+            })
         .then(response => {
             const fetcedProducts = [];
             for( let key in response.data){

@@ -1,21 +1,21 @@
 import React,{Component} from 'react'
-import Product from '../../components/Product/Product'
+import Products from '../../containers/Products/Products'
 import * as actions from '../../store/action/index'
 import {connect} from 'react-redux'
-import classes from './ProductVariation.module.css'
+// import classes from './ProductVariation.module.css'
 
 class ProductVariation extends Component {
 
     clickHandler =(productId) => {
         console.log(productId)
-        this.props.productVariation(productId)
+        this.props.productVariation(productId, this.props.token)
     }
 
     render(){
         console.log(this.props.variationList)
         return(
-            <div className={}>
-                <Product clicked={this.clickHandler}/>
+            <div>
+                <Products clicked={this.clickHandler}/>
 
                 {this.props.variationList.map(variation => (
                     console.log(variation)
@@ -40,13 +40,14 @@ class ProductVariation extends Component {
 
 const mapStateToProps = state => {
     return {
-        variationList: state.variation.productVariation
+        variationList: state.variation.productVariation,
+        token: state.auth.token
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        productVariation: (id) => dispatch(actions.productVariation(id))
+        productVariation: (productId, token) => dispatch(actions.productVariation(productId,token))
     }
 }
 

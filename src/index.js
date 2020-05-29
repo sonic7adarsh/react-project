@@ -12,6 +12,9 @@ import productReducer from './store/reducer/product'
 import signupReducer from './store/reducer/signup'
 import profileReducer from './store/reducer/profile'
 import variationReducer from './store/reducer/productVariation'
+import adminReducer from './store/reducer/admin'
+import metadataReducer from './store/reducer/metadata'
+import categoryReducer from './store/reducer/category'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
@@ -22,7 +25,10 @@ const rootReducer = combineReducers({
     product: productReducer,
     signup: signupReducer,
     profile: profileReducer,
-    variation: variationReducer
+    variation: variationReducer,
+    admin: adminReducer,
+    metadata: metadataReducer,
+    category: categoryReducer
 });
 
 

@@ -9,6 +9,8 @@ import CustomerAddress from './CustomerAddress/CustomerAddress'
 class CustomerProfile extends Component {
    
     componentDidMount(){
+        console.log('profle data')
+        console.log(this.props.history)
         this.props.profileData(this.props.token);
     }
 

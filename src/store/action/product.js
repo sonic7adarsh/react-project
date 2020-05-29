@@ -29,8 +29,9 @@ export const product =  () => {
             for( let key in response.data){
                 fetcedProducts.push({
                     ...response.data[key],
-                    id: key
+                    
                 })
+                // console.log()
             }
             console.log(fetcedProducts)
             dispatch(fetchSuccess(fetcedProducts))

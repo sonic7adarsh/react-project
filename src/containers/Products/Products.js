@@ -2,8 +2,9 @@ import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from '../../store/action/index'
 import Spinner from '../../components/UI/Spinner/Spinner'
-import Product from '../../components/Product/Product'
+// import Product from '../../components/Product/Product'
 import classes from './Products.module.css'
+import productImage from '../../assets/images/pic3.jpg'
 
 
 class Products extends Component {
@@ -14,10 +15,11 @@ class Products extends Component {
 
     render(){
             let products = this.props.fetchedProducts.map(product => (
-                <Product 
-                key={product.id}
-                productName={product.product.name}
-                price={product.price}/>
+                <div className={classes.Product} key={product.id} onClick={this.props.clicked.bind(this,product.id)}>
+                    <img src={productImage} alt="product data"/>
+                    <p>{product.product.productName}</p>
+                    <p>Price: <strong>USD: {Number.parseFloat(product.price).toFixed(2)}</strong></p>
+                </div>
                   ))
     
             if(this.props.isLoading){
