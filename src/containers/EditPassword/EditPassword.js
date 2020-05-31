@@ -1,10 +1,11 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import Button from '../../../components/UI/Button/Button'
-import Input from '../../../components/UI/Input/Input'
-import {updatedObject} from '../../../shared/utility'
+import Button from '../../components/UI/Button/Button'
+import Input from '../../components/UI/Input/Input'
+import {updatedObject} from '../../shared/utility'
 import classes from './EditPassword.module.css'
-import axios from 'axios'
+import * as actions from '../../store/action/index'
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 class EditPassword extends Component{
     state = {
@@ -54,27 +55,9 @@ class EditPassword extends Component{
     
 
     onsubmitHandler = (event) => {
-        console.log('reset password mein hu')
         event.preventDefault()
-        axios({
-            method: 'Put',
-            url: 'http://localhost:8080/e-commerce/customer/home/reset-password',
-            params:{
-                password: this.state.controls.password.value,
-                confirmPassword: this.state.controls.confirmPassword.value,
-            },
-            headers: {'Content-Type': 'application/json',
-                    'Authorization' : `Bearer ${this.props.token}`
-                }
-            })
-        .then(response => {
-            console.log('reset password mein hu')
-            console.log(response.data)
-            this.setState({isUpdated: true})
-        }).catch( err => {
-            console.log('reset password mein hu')
-            console.log(err.response)
-        })
+        this.props.update(this.props.token,this.props.label,this.state.controls.password.value,
+            this.state.controls.confirmPassword.value)
     }
 
 
@@ -99,13 +82,24 @@ class EditPassword extends Component{
           
         ))
         let content = null
-        if(this.state.isUpdated){
+        if(this.state.isUpdated && !this.state.isLoading){
             content = <p><strong>Password Updated Successfully</strong></p>
         }
-
-
+        let spin = null
+        if(this.props.isLoading){
+            spin = <Spinner/>
+        }
+        let msg = null
+        if(this.props.msg){
+            msg = this.props.msg
+        }
+        console.log('msg'+ msg)
         return (
             <div className={classes.Edit}>
+                <div className={classes.Spinner}>
+                    {spin}
+                    <div className={classes.Red}>{msg}</div>
+                </div>
                 <p>Please Enter the Password .....</p>
                 <form onSubmit = {this.onsigninHandler}>
                     {reset}
@@ -120,10 +114,16 @@ class EditPassword extends Component{
 const mapStateToProps = state => {
     return{
         token: state.auth.token,
-        loading: state.auth.loading,
-        error: state.auth.error,
+        label: state.auth.label,
+        isLoading: state.update.loading,
+        msg: state.update.success,
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return{
+        update: (token,label,password,confirmPassword) => dispatch(actions.updatePassword(token,label,password,confirmPassword))
+    }
+}
 
-export default connect(mapStateToProps)(EditPassword)
+export default connect(mapStateToProps,mapDispatchToProps)(EditPassword)

@@ -8,10 +8,11 @@ export const authStart = () => {
     }
 }
 
-export const authSuccess = (token) => {
+export const authSuccess = (token,label) => {
     return{
         type: actionTypes.AUTH_SUCCESS,
-        idToken: token
+        idToken: token,
+        label:label
     }
 }
 
@@ -37,8 +38,8 @@ export const authFail = (error) => {
     }
 }
 
-export const auth = (email,password) => {
-    console.log('its started')
+export const auth = (email,password,label) => {
+    console.log('its started '+label)
     return dispatch => {
         dispatch(authStart());
         const authData = {
@@ -59,7 +60,7 @@ export const auth = (email,password) => {
                 const expirationDate =new Date(new Date().getTime() + response.data.expiresIn * 1000)
                 localStorage.setItem('token',response.data.access_token)
                 localStorage.setItem('expirationDate',expirationDate)
-                dispatch(authSuccess(response.data.access_token))
+                dispatch(authSuccess(response.data.access_token,label))
                 // dispatch(checkAuthTimeout(response.data.expiresIn))
             }
         )

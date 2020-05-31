@@ -28,7 +28,7 @@ class MetaDataValue extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Please enter Category metadata Field Value'
+                    placeholder: 'Please enter Category metadata Field Id'
                 },
                 value: '',
                 validation:{

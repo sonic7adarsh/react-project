@@ -1,15 +1,28 @@
 import React,{Component} from 'react'
+import classes from './UpdateAddress.module.css'
+import Spinner from '../../../../components/UI/Spinner/Spinner'
+import {updatedObject} from '../../../../shared/utility'
+import Input from '../../../../components/UI/Input/Input'
+import Button from '../../../../components/UI/Button/Button'
 import {connect} from 'react-redux'
-import Button from '../../../components/UI/Button/Button'
-import Input from '../../../components/UI/Input/Input'
-import classes from './EditAddress.module.css'
-import {updatedObject} from '../../../shared/utility'
-import {Redirect} from 'react-router'
-import axios from 'axios'
+import * as actions from '../../../../store/action/index'
 
-class EditAddress extends Component {
+class UpdateProfile extends Component{
     state = {
         controls: {
+            addressId:{
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Please enter Address unique id'
+                },
+                value: '',
+                validation:{
+                    required: true,
+                },
+                valid: false,
+                touched: false
+            },
             city:{
                 elementType: 'input',
                 elementConfig: {
@@ -90,10 +103,9 @@ class EditAddress extends Component {
                 valid: false,
                 touched: false
             },
-            
         },
-        isUpdated: false
     }
+
 
     inputChangedHandler = (event, controlName) => {
         const updatedControls = updatedObject(this.state.controls,{
@@ -106,92 +118,65 @@ class EditAddress extends Component {
        })
     }
 
-    onSubmitHandler = (addressId) => {
-        // event.preventDefault()
-        axios({
-            method: 'Put',
-            url: `http://localhost:8080/e-commerce/customer/home/update-address/${addressId}`,
-            data:{
-                state: this.state.controls.state.value,
-                city: this.state.controls.city.value,
-                country: this.state.controls.country.value,
-                address: this.state.controls.address.value,
-                zipCode: this.state.controls.zipcode.value,
-                label: this.state.controls.label.value
-            },
-            headers: {'Content-Type': 'application/json',
-                    'Authorization' : `Bearer ${this.props.token}`
-                }
-            })
-        .then(response => {
-            this.setState({
-                isUpdated: true
-            })
-            console.log(response)
-        }).catch( err => {
-            console.log(err.response)
-        })
+    submitHandler = (event) => {
+        event.preventDefault()
+        this.props.onUpdate(this.state.controls.addressId.value, this.state.controls.city.value, 
+        this.state.controls.state.value, this.state.controls.country.value, this.state.controls.address.value,
+        this.state.controls.zipcode.value,this.state.controls.label.value, this.props.token, this.props.user)
     }
 
     render(){
-        let addressElementArray = [];
+        let detailElementArray = [];
         for( let key in this.state.controls){
-            addressElementArray.push({
+            detailElementArray.push({
                 id: key,
                 config: this.state.controls[key]
             })
         }
 
-        let address = addressElementArray.map(addressElement => (
+        let detail = detailElementArray.map(detailElement => (
             <Input
-                key= {addressElement.id}
-                elementType={addressElement.config.elementType}
-                elementConfig={addressElement.config.elementConfig}
-                value={addressElement.config.value}
-                changed={(event) => this.inputChangedHandler(event,addressElement.id)}/>
+                key= {detailElement.id}
+                elementType={detailElement.config.elementType}
+                elementConfig={detailElement.config.elementConfig}
+                value={detailElement.config.value}
+                changed={(event) => this.inputChangedHandler(event,detailElement.id)}/>
           
         ))
-
-        let content = null
-        if(!this.state.isUpdated)
-        {
-            content =(
-                <div className={classes.Detail}>
-                    <p>Please Enter the Address Detail For Updation</p>
-                    <form>
-                        {address}
-                    </form>
-                        {this.props.addressData.map(address => (
-                         <ul key={address.id}>
-                        <li><span>{address.state}</span></li>
-                        <li><span>{address.city}</span></li>
-                        <li><span>{address.country}</span></li>
-                        <li><span>{address.address}</span></li>
-                        <li><span>{address.zipCode}</span></li>
-                        <li><span>{address.label}</span></li>
-                        <div>
-                            <Button btnType = "Danger" clicked={this.onSubmitHandler.bind(this, address.id)}>Update Address {address.label}</Button>
-                        </div>
-                     </ul>
-                    ))}
-                    
-                    
+        let spin =null
+        if(this.props.loading){
+            spin = <div className={classes.Update}>
+                        <Spinner/>
+                    </div>
+        }    
+        return(
+            <div className={classes.Update}>
+                <p>Please Enter the Details</p>
+                <form onSubmit={this.submitHandler}>
+                    {spin}
+                    {detail}
+                </form>
+                <div>
+                    <Button btnType ="Success" clicked={this.submitHandler}>Submit</Button>
                 </div>
-            ) 
-        }else{
-            content = <Redirect to= "/updated"/>
-        }
-        return content
+                
+            </div>
+        )
     }
 }
-
-const mapSateToProps = state => {
-    return{
+const mapStatetoProps = state => {
+    return{ 
         token: state.auth.token,
-        // user: state.auth.user,
-        addressData: state.profile.addressData
+        user: state.auth.label,
+        loading: state.update.loading
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        onUpdate: (id,city,state, country, address, zipcode, label, token, user) => dispatch(actions.updateAddress(id,city,state, country, address, zipcode, label, token, user)),
     }
 }
 
 
-export default connect(mapSateToProps)(EditAddress)
+export default connect(mapStatetoProps,mapDispatchToProps)(UpdateProfile)

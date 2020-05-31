@@ -15,6 +15,7 @@ import variationReducer from './store/reducer/productVariation'
 import adminReducer from './store/reducer/admin'
 import metadataReducer from './store/reducer/metadata'
 import categoryReducer from './store/reducer/category'
+import updateReducer from './store/reducer/update'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
     variation: variationReducer,
     admin: adminReducer,
     metadata: metadataReducer,
-    category: categoryReducer
+    category: categoryReducer,
+    update: updateReducer
 });
 
 

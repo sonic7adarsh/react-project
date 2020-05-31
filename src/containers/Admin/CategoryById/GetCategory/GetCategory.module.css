@@ -2,6 +2,7 @@
     margin-left: 100px;
 }
 
+
 table{
     text-align: center;
 }
@@ -18,9 +19,9 @@ th{
     text-align: center;
 }
 
-tbody td{
+/* tbody td{
     color: green;
-}
+} */
 
 
 .Set p{

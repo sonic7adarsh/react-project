@@ -6,7 +6,15 @@ export {
 } from './auth'
 
 export{
-    product
+    product,
+    productfetch,
+    productActivate,
+    productDeactivate,
+    productDetail,
+    productPost,
+    deleteProduct,
+    viewProduct,
+    sellerProductFetch
 } from './product'
 
 export{
@@ -17,9 +25,17 @@ export{
     signup
 } from './signup'
 
+export{
+    update,
+    updatePassword,
+    updateAddress,
+    updateProduct
+} from './update'
+
 export {
     fetch,
-    addressFetch
+    addressFetch,
+    sellerFetch
 } from './profile'
 
 export{
@@ -30,10 +46,13 @@ export{
 export{
     metadataValue,
     metadataField,
-    metadataFetch
+    metadataFetch,
+    updateMetadataValue
 } from './metadata'
 
 export{
     category,
-    categoryFetch
+    categoryFetch,
+    categoryFetchById,
+    categoryUpdate
 } from './category'

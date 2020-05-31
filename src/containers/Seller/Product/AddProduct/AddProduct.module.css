@@ -1,4 +1,4 @@
-.Edit{
+.Product{
     margin: 150px auto;
     text-align: center;
     width: 40%;
@@ -8,12 +8,23 @@
     box-sizing: border-box;
 }
 
-.Edit Input{
+.Product Input{
     margin-top: 30px;
 }
 
+.Product textarea{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.Green{
+    color: green;
+}
+.RED{
+    color: red;
+}
 @media(min-width: 600px){
-    .Edit{
+    .Product{
         width: 500px;
     }
 }

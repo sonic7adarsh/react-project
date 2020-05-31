@@ -25,7 +25,7 @@ export const category =  (token, id, name) => {
         dispatch(categoryPostStart())
         axios({
             method: 'post',
-            url: 'http://localhost:8080/e-commerce/admin/home/add-metadata-field',
+            url: 'http://localhost:8080/e-commerce/admin/home/add-category',
             data:{
                 parentId: id,
                 name: name
@@ -92,3 +92,96 @@ export const categoryFetch =  (token) => {
          })
     }
 }
+
+
+export const categoryFetchByIdStart = () => {
+    return{
+        type: actionTypes.CATEGORY_FETCH_BY_ID_START
+    }
+}
+
+export const categoryFetchByIdSuccess = (data) => {
+    return{
+        type: actionTypes.CATEGORY_FETCH_BY_ID_SUCCESS,
+        data: data
+    }
+}
+
+export const categoryFetchByIdFail = () => {
+    return{
+        type: actionTypes.CATEGORY_FETCH_BY_ID_FAIL,
+    }
+}
+
+export const categoryFetchById =  (token,id) => {
+    return dispatch => {
+        dispatch(categoryFetchByIdStart())
+        axios({
+            method: 'get',
+            url: `http://localhost:8080/e-commerce/admin/home/get-category/${id}`,
+            headers: {
+                'Authorization': 'Bearer' + token
+                }
+         })
+         .then(response => {
+            const fetchedData = [];
+            for( let key in response.data){
+                fetchedData.push({
+                    ...response.data[key],
+                })
+            }
+            console.log(fetchedData)
+            dispatch(categoryFetchByIdSuccess(fetchedData))
+         }).catch( err => {
+             console.log(err.response)
+            dispatch(categoryFetchByIdFail())
+         })
+    }
+}
+
+
+export const categoryUpdateStart = () => {
+    return{
+        type: actionTypes.CATEGORY_UPDATE_START
+    }
+}
+
+export const categoryUpdateSuccess = () => {
+    return{
+        type: actionTypes.CATEGORY_UPDATE_SUCCESS
+    }
+}
+
+export const categoryUpdateFail = (error) => {
+    return{
+        type: actionTypes.CATEGORY_UPDATE_FAIL,
+        error: error
+    }
+}
+
+export const categoryUpdate =  (token,id, name) => {
+    return dispatch => {
+        dispatch(categoryUpdateStart())
+        axios({
+            method: 'Put',
+            url: `http://localhost:8080/e-commerce/admin/home/update-category/${id}`,
+            params:{
+                name: name
+            } ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+                }
+         })
+        .then(response => {
+            console.log('in fetch data oof customer')
+            console.log(response.data)
+            dispatch(categoryUpdateSuccess())
+        }).catch( err => {
+            console.log('in side catch')
+            console.log(err.response)
+            dispatch(categoryUpdateFail(err.response.data.message))
+        })
+    }
+}
+

@@ -138,3 +138,31 @@ export const metadataFetch =  (token) => {
     }
 }
 
+//-------------------------------------
+
+export const updateMetadataValue =  (token, id, fieldId, value) => {
+    return dispatch => {
+        dispatch(metadataValuePostStart())
+        axios({
+            method: 'put',
+            url: 'http://localhost:8080/e-commerce/admin/home/update-category-metadata-field-value',
+            data:{
+                categoryId: id,
+                categoryMetadataFieldId: fieldId,
+                value: value
+            } ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer' + token
+                }
+         })
+        .then(response => {
+            console.log('data response')
+            console.log(response.data)
+            dispatch(metadataValuePostSuccess())
+        }).catch( err => {
+            console.log(err.response)
+            dispatch(metadataValuePostFail(err.response.data.message))
+        })
+    }
+}

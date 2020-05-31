@@ -89,3 +89,24 @@ export const addressFetch = (token) => {
             })
     }
 }
+
+export const sellerFetch = (token) => {
+    console.log('fetch data')
+    return dispatch => {
+        dispatch(fetchStart())
+        axios({
+            method: 'Get',
+            url: 'http://localhost:8080/e-commerce/seller/home/user-profile',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization' : `Bearer ${token}`
+                }
+            })
+        .then(response => {
+            const fetchedData = [];
+            fetchedData.push(response.data)
+            dispatch(fetchSuccess(fetchedData))
+        }).catch( err => {
+            dispatch(fetchFail())
+        })
+    }
+}

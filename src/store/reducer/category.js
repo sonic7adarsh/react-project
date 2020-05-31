@@ -3,6 +3,7 @@ import {updatedObject} from '../../shared/utility'
 
 const initialState = {
     category: [],
+    idData: [],
     isLoading: false,
     error: null
 }
@@ -19,6 +20,24 @@ const categorySuccess = (state,action) => {
 }
 
 const categoryFail = (state,action) => {
+    return updatedObject(state, {
+        error: action.error,
+        isLoading: false
+    })
+}
+
+const categoryUpdateStart = (state,action) => {
+    return updatedObject(state, {error: null, isLoading: true})
+}
+
+const categoryUpdateSuccess = (state,action) => {
+    return updatedObject(state, {
+        error: null,
+        isLoading: false
+    })
+}
+
+const categoryUpdateFail = (state,action) => {
     return updatedObject(state, {
         error: action.error,
         isLoading: false
@@ -44,6 +63,25 @@ const categoryFetchFail = (state,action) => {
     })
 }
 
+const categoryFetchByIdStart = (state,action) => {
+    return updatedObject(state, {error: null, isLoading: true})
+}
+
+const categoryFetchByIdSuccess = (state,action) => {
+    return updatedObject(state, {
+        error: null,
+        idData: action.data,
+        isLoading: false
+    })
+}
+
+const categoryFetchByIdFail = (state,action) => {
+    return updatedObject(state, {
+        error: action.error,
+        isLoading: false
+    })
+}
+
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
@@ -59,6 +97,18 @@ const reducer = (state = initialState, action) => {
             return categoryFetchSuccess(state,action)
         case actions.CATEGORY_FETCH_FAIL:
             return categoryFetchFail(state,action)
+        case actions.CATEGORY_FETCH_BY_ID_START:
+            return categoryFetchByIdStart(state,action)
+        case actions.CATEGORY_FETCH_BY_ID_SUCCESS:
+            return categoryFetchByIdSuccess(state,action)
+        case actions.CATEGORY_FETCH_BY_ID_FAIL:
+            return categoryFetchByIdFail(state,action)
+        case actions.CATEGORY_UPDATE_START:
+            return categoryUpdateStart(state,action)
+        case actions.CATEGORY_UPDATE_SUCCESS:
+            return categoryUpdateSuccess(state,action)
+        case actions.CATEGORY_UPDATE_FAIL:
+            return categoryUpdateFail(state,action)
         default:
             return state
     }

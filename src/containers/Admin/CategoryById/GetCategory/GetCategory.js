@@ -1,8 +1,9 @@
 import React,{Component} from 'react'
-import * as actions from '../../../store/action/index'
+import * as actions from '../../../../store/action/index'
 import {connect} from 'react-redux'
-import Spinner from '../../../components/UI/Spinner/Spinner'
+import Spinner from '../../../../components/UI/Spinner/Spinner'
 import classes from './GetCategory.module.css'
+import Button from '../../../../components/UI/Button/Button'
 
 class GetCategory extends Component{
    
@@ -15,6 +16,7 @@ class GetCategory extends Component{
     render(){
         console.log(this.props.category)
         let content = null
+
         content = (
             <div className = {classes.Data}>
                 <table>
@@ -22,6 +24,8 @@ class GetCategory extends Component{
                         <tr>
                             <td>Id</td>
                             <td>NAME</td>
+                            <td>VIEW DETAILS</td>
+                            <td>UPDATE DETAILS</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +33,8 @@ class GetCategory extends Component{
                          <tr key = {data.id}>
                             <td>{data.id}</td>
                             <td>{data.name}</td>
+                            <td><Button btnType="Success" clicked={this.props.onSubmitHandler.bind(this,data.id)}>View</Button></td>
+                            <td><Button btnType="Danger" clicked={this.props.onUpdateHandler.bind(this, data.id)}>Update</Button></td>
                         </tr>   
                         ))}
                     </tbody>
@@ -42,11 +48,14 @@ class GetCategory extends Component{
         }
         return(
             <div className={classes.Set}>
-                 <div className={classes.Spin}>
+                <div>
+                    <p><strong>Category Data....</strong></p>
+                    {content}
+                </div>
+                
+                <div className={classes.Spin}>
                     {spin}
                 </div>
-                <p><strong>Category Data....</strong></p>
-                {content}
             </div>
         )
     }

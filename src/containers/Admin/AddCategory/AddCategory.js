@@ -1,53 +1,39 @@
 import React ,{Component} from 'react'
-import classes from './MetaDataValue.module.css'
-import Button from '../../../../../components/UI/Button/Button'
-import Input from '../../../../../components/UI/Input/Input'
-import Spinner from '../../../../../components/UI/Spinner/Spinner'
-import {updatedObject} from '../../../../../shared/utility'
+import classes from './AddCategory.module.css'
+import Button from '../../../components/UI/Button/Button'
+import Input from '../../../components/UI/Input/Input'
+import Spinner from '../../../components/UI/Spinner/Spinner'
+import {updatedObject} from '../../../shared/utility'
 import {connect} from 'react-redux'
-import * as actions from '../../../../../store/action/index'
+import * as actions from '../../../store/action/index'
 
-class MetaDataValue extends Component {
+class AddCategory extends Component {
     state = {
         controls: {
-            categoryId:{
+            parentId:{
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Please enter Category ID'
+                    placeholder: 'Please enter parent category ID'
                 },
                 value: '',
                 validation:{
                     required: true,
-                    isEmail: true
+                    isEmail: false
                 },
                 valid: false,
                 touched: false
             },
-            categorymetadataFieldId:{
+            name:{
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Please enter Category metadata Field Value'
+                    placeholder: 'Please enter name'
                 },
                 value: '',
                 validation:{
                     required: true,
-                    isEmail: true
-                },
-                valid: false,
-                touched: false
-            },
-            values:{
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Please enter value'
-                },
-                value: '',
-                validation:{
-                    required: true,
-                    isEmail: true
+                    isEmail: false
                 },
                 valid: false,
                 touched: false
@@ -69,8 +55,8 @@ class MetaDataValue extends Component {
 
     onSubmitHandler = (event) => {
         event.preventDefault()
-        this.props.fetchData(this.props.token, this.state.controls.categoryId.value, 
-            this.state.controls.categorymetadataFieldId.value, this.state.controls.values.value)
+        this.props.fetchData(this.props.token, this.state.controls.parentId.value, 
+            this.state.controls.name.value)
     }
 
     render(){
@@ -103,10 +89,10 @@ class MetaDataValue extends Component {
         }
             
         return(
-            <div className={classes.Metadata}>
+            <div className={classes.Category}>
                 {content}
                 {error}
-                <p><strong>Please Enter The Required Field .....</strong></p>
+                <p><strong>Please Enter The Category Data to Add .....</strong></p>
                 <form>
                     {form}
                 </form>
@@ -123,16 +109,16 @@ class MetaDataValue extends Component {
 const mapStateToProps = state => {
     return{
         token: state.auth.token,
-        isLoading: state.metadata.isLoading,
-        error: state.metadata.error
+        isLoading: state.category.isLoading,
+        error: state.category.error
 
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        fetchData: (token, id, fieldId, value) => dispatch(actions.metadataValue(token, id, fieldId, value))
+        fetchData: (token, id, name) => dispatch(actions.category(token, id, name))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MetaDataValue)
+export default connect(mapStateToProps, mapDispatchToProps)(AddCategory)

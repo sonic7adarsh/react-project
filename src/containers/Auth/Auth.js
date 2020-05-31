@@ -38,7 +38,23 @@ class Auth extends Component {
                 },
                 valid: false,
                 touched: false
-            }
+            },
+            label:{
+                elementType: 'select',
+                elementConfig: {
+                    options:[
+                        {value: 'admin', displayValue: 'ADMIN'},
+                        {value: 'customer', displayValue: 'CUSTOMER'},
+                        {value: 'seller', displayValue: 'SELLER'}
+                    ]
+                },
+                value: 'admin',
+                validation:{
+                    required: true,
+                },
+                valid: false,
+                touched: false
+            },
         },
         isSignup: false
     }
@@ -66,7 +82,7 @@ class Auth extends Component {
 
     signinHandler = (event) => {
         event.preventDefault()
-        this.props.onAuth(this.state.controls.email.value,  this.state.controls.password.value)
+        this.props.onAuth(this.state.controls.email.value,  this.state.controls.password.value, this.state.controls.label.value)
     }
 
     resendHandler = (event) => {
@@ -137,7 +153,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        onAuth: (email, password) => dispatch(actions.auth(email, password)),
+        onAuth: (email, password ,label) => dispatch(actions.auth(email, password, label)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
     }
 }

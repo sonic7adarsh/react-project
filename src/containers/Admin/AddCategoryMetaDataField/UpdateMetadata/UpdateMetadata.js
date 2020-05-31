@@ -1,23 +1,48 @@
-import React, {Component} from 'react'
-import classes from './MetaData.module.css'
+import React ,{Component} from 'react'
+import classes from './UpdateMetadata.module.css'
 import Button from '../../../../components/UI/Button/Button'
 import Input from '../../../../components/UI/Input/Input'
+import Spinner from '../../../../components/UI/Spinner/Spinner'
 import {updatedObject} from '../../../../shared/utility'
 import {connect} from 'react-redux'
-import Spinner from '../../../../components/UI/Spinner/Spinner'
-import MetaDataValue from './MetaDataValue/MetaDataValue'
-import {Route} from 'react-router-dom'
-import UpdateMetaData from '../UpdateMetadata/UpdateMetadata'
 import * as actions from '../../../../store/action/index'
 
-class MetaData extends Component {
+class UpdateMetaData extends Component {
     state = {
         controls: {
-            metaDataField:{
+            categoryId:{
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Please enter Meta data field'
+                    placeholder: 'Please enter Category ID'
+                },
+                value: '',
+                validation:{
+                    required: true,
+                    isEmail: true
+                },
+                valid: false,
+                touched: false
+            },
+            categorymetadataFieldId:{
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Please enter Category metadata Field Id'
+                },
+                value: '',
+                validation:{
+                    required: true,
+                    isEmail: true
+                },
+                valid: false,
+                touched: false
+            },
+            values:{
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Please enter value'
                 },
                 value: '',
                 validation:{
@@ -44,16 +69,10 @@ class MetaData extends Component {
 
     onSubmitHandler = (event) => {
         event.preventDefault()
-        this.props.fetchData(this.props.token, this.state.controls.metaDataField.value)
+        this.props.updateData(this.props.token, this.state.controls.categoryId.value, 
+            this.state.controls.categorymetadataFieldId.value, this.state.controls.values.value)
     }
 
-    onContinueHandler = () => {
-        this.props.history.push('/add-metadata/metadata-value')
-    }
-
-    onUpdateHandler = () => {
-        this.props.history.push('/add-metadata/update-metadata-value')
-    }
     render(){
         let elementArray = [];
         for( let key in this.state.controls){
@@ -77,11 +96,11 @@ class MetaData extends Component {
         if(this.props.isLoading){
             content = <Spinner/>
         }
-        let error=null
-        if(this.props.error){
-            error=this.props.error            
-        }
 
+        let error = null 
+        if(this.props.error){
+            error = this.props.error
+        }
             
         return(
             <div className={classes.Metadata}>
@@ -93,15 +112,8 @@ class MetaData extends Component {
                 </form>
                 <div>
                     <Button btnType="Success" clicked={this.onSubmitHandler}>Submit</Button>
-                    <Button btnType="Success" clicked={this.onContinueHandler}>Add Meta data Value</Button>
-                    <Button btnType="Success" clicked={this.onUpdateHandler}>Update Meta data Value</Button>
+
                 </div>
-                <Route 
-                        path={this.props.match.path + '/metadata-value'} 
-                        component={MetaDataValue}/>
-                <Route 
-                        path={this.props.match.path + '/update-metadata-value'} 
-                        component={UpdateMetaData}/>
             </div>
         )
     }
@@ -113,13 +125,14 @@ const mapStateToProps = state => {
         token: state.auth.token,
         isLoading: state.metadata.isLoading,
         error: state.metadata.error
+
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        fetchData: (token,metaDataField) => dispatch(actions.metadataField(token,metaDataField))
+        updateData: (token, id, fieldId, value) => dispatch(actions.updateMetadataValue(token, id, fieldId, value))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MetaData)
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateMetaData)
