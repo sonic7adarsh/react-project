@@ -79,6 +79,20 @@ class SellerDetail extends Component {
                 valid: false,
                 touched: false
             },
+            profile:{
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Please enter name of file'
+                },
+                value: '',
+                validation:{
+                    required: true,
+                    isEmail: true
+                },
+                valid: false,
+                touched: false
+            },
             password:{
                 elementType: 'input',
                 elementConfig: {
@@ -243,11 +257,12 @@ class SellerDetail extends Component {
                 firstName: this.state.controls.firstName.value,
                 middleName: this.state.controls.middleName.value,
                 lastName: this.state.controls.lastName.value,
+                profile: this.state.controls.profile.value,
                 password: this.state.controls.password.value,
                 confirmPassword: this.state.controls.confirmPassword.value,
                 gst: this.state.controls.gst.value,
                 companyContact: this.state.controls.companyContact.value,
-                companyName: this.state.controls.companyName.controlName,
+                companyName: this.state.controls.companyName.value,
                 addresses: [
                     {
                        city: this.state.controls.city.value,

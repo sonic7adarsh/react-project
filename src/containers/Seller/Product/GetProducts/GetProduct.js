@@ -86,8 +86,9 @@ class GetProduct extends Component {
     } 
 
     render(){
-        console.log(this.props.detail)
+        console.log(this.props.detail.metaData)
         console.log('length'+this.props.detail.length)
+        
 
         let detailElementArray = [];
         for( let key in this.state.controls){
@@ -157,7 +158,6 @@ class GetProduct extends Component {
                                 <td>Id</td>
                                 <td>QUANTITY AVAILABLE</td>
                                 <td>PRICE</td>
-                                <td>METADATA</td>
                                 <td>IMAGE</td>
                                 <td>IS_ACTIVE</td>
                             </tr>
@@ -168,7 +168,6 @@ class GetProduct extends Component {
                                 <td>{det.id}</td>
                                 <td>{det.quantityAvailable}</td>
                                 <td>{det.price}</td>
-                                <td>{det.metaData.size}</td>
                                 <td>{det.productVariationImage}</td>
                                 <td>{String(det.active)}</td>
                             </tr>   

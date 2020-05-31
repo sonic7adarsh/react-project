@@ -20,7 +20,7 @@ export const signupFail = () => {
     }
 }
 
-export const signup = (email,password, confirmPassword,firstName,middleName,lastName,contactNo) => {
+export const signup = (email,password, confirmPassword,firstName,middleName,profile,lastName,contactNo) => {
     console.log('its started')
     return dispatch => {
         dispatch(signupStart());
@@ -30,6 +30,7 @@ export const signup = (email,password, confirmPassword,firstName,middleName,last
             confirmPassword: confirmPassword,
             firstName: firstName,
             middleName: middleName,
+            profile: profile,
             lastName: lastName,
             contactNo: contactNo
         };

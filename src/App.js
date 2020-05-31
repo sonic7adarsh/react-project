@@ -13,7 +13,7 @@ import EditAddress from './containers/EditDetails/EditAddress/EditAddress'
 import EditPassword from './containers/EditPassword/EditPassword'
 import SellerSignUp from './containers/SignUps/SellerSignUp/SellerSignUp'
 import ResendLink from './components/ResendLink/ResendLink'
-import ProductVariation from './containers/ProductVariation/ProductVariation'
+import ProductVariation from './containers/Seller/ProductVariation/ProductVariation'
 import AllSellers from './containers/Admin/AllSellers/AllSeller';
 import AllCustomers from './containers/Admin/AllCustomers/AllCustomer'
 import MetaData from './containers/Admin/AddCategoryMetaDataField/MetaData/MetaData';
@@ -27,6 +27,7 @@ import UpdateProfile from './containers/Seller/UpdateProfile/UpdateProfile';
 import UpdateAddress from './containers/Seller/UpdateProfile/UpdateAddress/UpdateAddress';
 import AddProduct from './containers/Seller/Product/AddProduct/AddProduct';
 import SellerProduct from './containers/Seller/Product/GetProducts/GetProduct'
+import GetCategory from './containers/Seller/GetCategory/GetCategory';
 
 const asyncProfile = asyncComponent(() => {
   return import('./containers/UserProfile/CustomerProfile/CustomerProfile')
@@ -38,6 +39,8 @@ function App() {
     <div>
       <Layout>
         <Switch>
+          <Route path="/get-category" component={GetCategory}/>
+          <Route path="/add/product-variation" component={ProductVariation}/>
           <Route path="/seller/products" component={SellerProduct}/>
           <Route path="/post/product" component={AddProduct}/>
           <Route path="/update-seller-address" component={UpdateAddress}/>

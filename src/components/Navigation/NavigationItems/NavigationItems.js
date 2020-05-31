@@ -93,6 +93,12 @@ class NavigationItems extends Component{
              {this.props.isAuth
             ? <NavigationItem link="/seller/products" >My Products</NavigationItem>
             : <NavigationItem link="/items" >Trending Items</NavigationItem>}
+            {this.props.isAuth
+            ? <NavigationItem link="/add/product-variation" >Add variation</NavigationItem>
+            : <NavigationItem link="/items" >Trending Items</NavigationItem>}
+            {this.props.isAuth
+            ? <NavigationItem link="/get-category" >Get Category</NavigationItem>
+            : <NavigationItem link="/items" >Trending Items</NavigationItem>}
 
         </ul>)}
         

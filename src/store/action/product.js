@@ -312,3 +312,59 @@ export const productPost =  (name,brand,description,categoryId, token) => {
     }
 }
 
+export const productVariationPost =  (id, quantity, price,image,field,value, token) => {
+    return dispatch => {
+        dispatch(productPostStart())
+        axios({
+            method: 'post',
+            url: `http://localhost:8080/e-commerce/seller/home/add-product-variation`,
+            data:{
+                productId: id,
+                quantityAvailable: quantity,
+                productVariationImage: image,
+                price: price,
+                metaData:{
+                    [field]: value
+                }
+            },
+            headers: {
+                'Authorization': 'Bearer '+ token
+            }
+            })
+        .then(response => {
+            dispatch(productPostSuccess(response.data))
+        }).catch( err => {
+            console.log(err.response)
+            dispatch(productPostFail(err.response.data.message))
+        })
+    }
+}
+
+export const productVariationUpdate =  (id, quantity, price,image, field,value, token) => {
+    return dispatch => {
+        dispatch(productPostStart())
+        axios({
+            method: 'post',
+            url: `http://localhost:8080/e-commerce/seller/home/update-product-variation/{id}`,
+            data:{
+                productId: id,
+                quantityAvailable: quantity,
+                productVariationImage: image,
+                price: price,
+                metaData:{
+                    [field]: value
+                }
+            },
+            headers: {
+                'Authorization': 'Bearer '+ token
+            }
+            })
+        .then(response => {
+            dispatch(productPostSuccess(response.data))
+        }).catch( err => {
+            console.log(err.response)
+            dispatch(productPostFail(err.response.data.message))
+        })
+    }
+}
+

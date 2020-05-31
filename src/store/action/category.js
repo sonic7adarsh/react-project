@@ -67,12 +67,12 @@ export const categoryFetchFail = () => {
     }
 }
 
-export const categoryFetch =  (token) => {
+export const categoryFetch =  (token,label) => {
     return dispatch => {
         dispatch(categoryFetchStart())
         axios({
             method: 'get',
-            url: 'http://localhost:8080/e-commerce/admin/home/all-category',
+            url: `http://localhost:8080/e-commerce/${label}/home/all-category`,
             headers: {
                 'Authorization': 'Bearer' + token
                 }

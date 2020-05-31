@@ -14,7 +14,9 @@ export{
     productPost,
     deleteProduct,
     viewProduct,
-    sellerProductFetch
+    sellerProductFetch,
+    productVariationPost,
+    productVariationUpdate
 } from './product'
 
 export{

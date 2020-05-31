@@ -1,20 +1,15 @@
-import React,{Component} from 'react'
-import * as actions from '../../../../store/action/index'
+import React,{Component}  from 'react'
 import {connect} from 'react-redux'
-import Spinner from '../../../../components/UI/Spinner/Spinner'
+import * as actions from '../../../store/action/index'
 import classes from './GetCategory.module.css'
-import Button from '../../../../components/UI/Button/Button'
+import Spinner from '../../../components/UI/Spinner/Spinner'
 
 class GetCategory extends Component{
-   
-
     componentDidMount(){
-        this.props.fetchData(this.props.token)
+        console.log('this.get seller data')
+        this.props.category(this.props.token,this.props.label)
     }
-
-
     render(){
-        console.log(this.props.category)
         let content = null
 
         content = (
@@ -26,19 +21,15 @@ class GetCategory extends Component{
                             <td>NAME</td>
                             <td>PARENT ID</td>
                             <td>PARENT NAME</td>
-                            <td>VIEW DETAILS</td>
-                            <td>UPDATE DETAILS</td>
                         </tr>
                     </thead>
                     <tbody>
-                         {this.props.category.map(data => (
+                         {this.props.details.map(data => (
                          <tr key = {data.id}>
                             <td>{data.id}</td>
                             <td>{data.name}</td>
-                            <td>{data.parent ? data.parent.id : null }</td>
-                            <td>{data.parent ? data.parent.name : null }</td>
-                            <td><Button btnType="Success" clicked={this.props.onSubmitHandler.bind(this,data.id)}>View</Button></td>
-                            <td><Button btnType="Danger" clicked={this.props.onUpdateHandler.bind(this, data.id)}>Update</Button></td>
+                            <td>{data.parent ? data.parent.id : 'N/A' }</td>
+                            <td>{data.parent ? data.parent.name : 'N/A' }</td>
                         </tr>   
                         ))}
                     </tbody>
@@ -68,14 +59,15 @@ class GetCategory extends Component{
 const mapStateToProps = state => {
     return{
         token: state.auth.token,
-        category: state.category.category,
-        isLoading: state.category.isLoading
+        label: state.auth.label,
+        details: state.category.category,
+        loading: state.category.isLoading
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        fetchData: (token) => dispatch(actions.categoryFetch(token))
+        category: (token,label) => dispatch(actions.categoryFetch(token,label))
     }
 }
 
