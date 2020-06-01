@@ -1,23 +1,22 @@
-.Product{
+.View1{
     padding: 10px;
-    margin: 20px;
-    width: 20%;
+    margin: 20px 38px;
+    width: 245px;
+    text-align: center;
     display: inline-block;
     border: 1px solid #eee;
     box-shadow: 0px 2px 3px #ccc;
     box-sizing: border-box;
 }
 
-.Product img{
-    width: 98%;
-    padding-left: 3px;
-    align-items: center;
+.Pic1 img{
+    width: 95%;
+    height: 250px;
 }
 
-.Products{
-    align-items: center;
-    margin-left: 60px;
-}
+
+
+
 
 @media(max-width: 500px){
     .Products{

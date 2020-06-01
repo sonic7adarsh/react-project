@@ -19,6 +19,7 @@ class CustomerProfile extends Component {
         let profile = this.props.data.map(profile => (
             <Profile 
             key={profile.id}
+            profileImg={profile.profile}
             fName={profile.firstName}
             lName={profile.lastName}
             mName={profile.middleName}

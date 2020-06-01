@@ -20,7 +20,8 @@ export{
 } from './product'
 
 export{
-    productVariation
+    productVariation,
+    similar
 } from './productVariation'
 
 export{

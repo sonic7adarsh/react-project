@@ -29,6 +29,7 @@ class GetProduct extends Component {
 
 
     render(){
+        console.log('produtc.....'+this.props.product)
         let addcontent = null
         if(this.props.product.length>0){
         addcontent = (
@@ -47,8 +48,8 @@ class GetProduct extends Component {
                          <tr key = {da.id}>
                             <td>{da.id}</td>
                             <td>{da.name}</td>
-                            <td>{da.category.id}</td>
-                            <td>{da.category.name}</td>
+                            <td>{da.category? da.category.id:null}</td>
+                            <td>{da.category? da.category.name: null}</td>
                         </tr>   
                         ))}
                     </tbody>

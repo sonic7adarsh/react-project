@@ -23,7 +23,7 @@ export const fetchFail = () => {
 export const product =  () => {
     return dispatch => {
         dispatch(fetchStart())
-        axios.get('http://localhost:8080/e-commerce/register/home/product/18')
+        axios.get('http://localhost:8080/e-commerce/register/home/variations')
         .then(response => {
             const fetcedProducts = [];
             for( let key in response.data){
@@ -340,7 +340,7 @@ export const productVariationPost =  (id, quantity, price,image,field,value, tok
     }
 }
 
-export const productVariationUpdate =  (id, quantity, price,image, field,value, token) => {
+export const productVariationUpdate =  (id, quantity, price, image, field,value, token) => {
     return dispatch => {
         dispatch(productPostStart())
         axios({
@@ -368,3 +368,24 @@ export const productVariationUpdate =  (id, quantity, price,image, field,value, 
     }
 }
 
+// export const products =  () => {
+//     return dispatch => {
+//         dispatch(fetchStart())
+//         axios.get('http://localhost:8080/e-commerce/register/home/variations')
+//         .then(response => {
+//             const fetcedProducts = [];
+//             for( let key in response.data){
+//                 fetcedProducts.push({
+//                     ...response.data[key],
+                    
+//                 })
+//                 // console.log()
+//             }
+//             console.log(fetcedProducts)
+//             dispatch(fetchSuccess(fetcedProducts))
+//         }).catch( err => {
+//             console.log(err.response)
+//             dispatch(fetchFail())
+//         })
+//     }
+// }

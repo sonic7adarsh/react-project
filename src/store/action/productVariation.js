@@ -20,31 +20,77 @@ export const variationFetchFail = () => {
     }
 }
 
+
 export const productVariation =  (id, token) => {
     return dispatch => {
         console.log('variation fetch start')
         dispatch(variationFetchStart())
         axios({
             method: 'Get',
-            url: `http://localhost:8080/e-commerce/customer/home/product/${id}`,
+            url: `http://localhost:8080/e-commerce/customer/home/product-variation/${id}`,
             headers: {
                     'Authorization' : `Bearer ${token}`
                 }
             })
         .then(response => {
+            console.log(response.data)
             const fetcedProducts = [];
-            for( let key in response.data){
-                console.log(response.data)
-                fetcedProducts.push({
-                    ...response.data[key],
-                    id: key
-                })
-            }
+            fetcedProducts.push({
+                ...response.data,
+                
+            })
             console.log(fetcedProducts)
             dispatch(variationFetchSuccess(fetcedProducts))
         }).catch( err => {
             console.log(err.response)
             dispatch(variationFetchFail())
+        })
+    }
+}
+
+export const similarProductStart = () => {
+    return{
+        type: actionTypes.SIMILAR_PRODUCT_START
+    }
+}
+
+export const similarProductSuccess = (products) => {
+    return{
+        type: actionTypes.SIMILAR_PRODUCT_SUCCESS,
+        products: products
+    }
+}
+
+export const similarProductFail = () => {
+    return{
+        type: actionTypes.SIMILAR_PRODUCT_FAIL
+    }
+}
+
+export const similar =  (id, token) => {
+    return dispatch => {
+        console.log('variation fetch start')
+        dispatch(similarProductStart())
+        axios({
+            method: 'Get',
+            url: `http://localhost:8080/e-commerce/customer/home/similar-product/${id}`,
+            headers: {
+                    'Authorization' : `Bearer ${token}`
+                }
+            })
+        .then(response => {
+            console.log(response.data)
+            const fetcedProducts = [];
+                for( let key in response.data){
+                    fetcedProducts.push({
+                         ...response.data[key],
+                                
+                })}
+            console.log('similar'+fetcedProducts)
+            dispatch(similarProductSuccess(fetcedProducts))
+        }).catch( err => {
+            console.log(err.response)
+            dispatch(similarProductFail())
         })
     }
 }

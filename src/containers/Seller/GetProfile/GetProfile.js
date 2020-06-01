@@ -1,6 +1,6 @@
 import React,{Component}  from 'react'
 import {connect} from 'react-redux'
-import picture from '../../../assets/images/pic3.jpg'
+// import picture from '../../../assets/images/pic3.jpg'
 import * as actions from '../../../store/action/index'
 import classes from './GetProfile.module.css'
 import Spinner from '../../../components/UI/Spinner/Spinner'
@@ -12,24 +12,29 @@ class GetProfile extends Component{
     }
     render(){
         console.log(this.props.data)
-        let profile = this.props.data.map(profile => (
-            <div className={classes.Seller} key={profile.id}>
-                <img src={picture} alt='profile dp'/>
-                <p>FirstName:      <strong>{profile.firstName}</strong></p>
-                <p>MiddleName:     <strong>{profile.middleName}</strong></p>
-                <p>LastName:       <strong>{profile.lastName}</strong></p>
-                <p>Email:          <strong>{profile.email}</strong></p>
-                <p>Gst:            <strong>{profile.gst}</strong></p>
-                <p>companyName:    <strong>{profile.companyName}</strong></p>
-                <p>companyContact: <strong>{profile.companyContact}</strong></p>
-                <p>Addresses ID:   <strong>{profile.addresses[0].id}</strong></p>
-                <p>City:           <strong>{profile.addresses[0].city}</strong></p>
-                <p>State:          <strong>{profile.addresses[0].state}</strong></p>
-                <p>Country:        <strong>{profile.addresses[0].country}</strong></p>
-                <p>Address:        <strong>{profile.addresses[0].address}</strong></p>
-                <p>Zipcode:        <strong>{profile.addresses[0].zipCode}</strong></p>
-                <p>Label:          <strong>{profile.addresses[0].label}</strong></p>
+        let profile = this.props.data.map(profiled => (
+            <div className={classes.Seller} key={profiled.id}>
+                <div className={classes.Dp}>
+                    <img src={require(`../../../assets/images/${profiled.profile}`)} alt='profile dp'/>
+                </div>
+                <div className={classes.Data}>
+                    <p>FirstName:      <strong>{profiled.firstName}</strong></p>
+                    <p>MiddleName:     <strong>{profiled.middleName}</strong></p>
+                    <p>LastName:       <strong>{profiled.lastName}</strong></p>
+                    <p>Email:          <strong>{profiled.email}</strong></p>
+                    <p>Gst:            <strong>{profiled.gst}</strong></p>
+                    <p>companyName:    <strong>{profiled.companyName}</strong></p>
+                    <p>companyContact: <strong>{profiled.companyContact}</strong></p>
+                    <p>Addresses ID:   <strong>{profiled.addresses[0].id}</strong></p>
+                    <p>City:           <strong>{profiled.addresses[0].city}</strong></p>
+                    <p>State:          <strong>{profiled.addresses[0].state}</strong></p>
+                    <p>Country:        <strong>{profiled.addresses[0].country}</strong></p>
+                    <p>Address:        <strong>{profiled.addresses[0].address}</strong></p>
+                    <p>Zipcode:        <strong>{profiled.addresses[0].zipCode}</strong></p>
+                    <p>Label:          <strong>{profiled.addresses[0].label}</strong></p>
 
+                </div>
+                
             </div>
               ))
               if(this.props.loading){

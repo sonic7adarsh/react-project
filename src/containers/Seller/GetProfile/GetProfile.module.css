@@ -11,6 +11,11 @@
     text-align: center;
 }
 
+.Dp img{
+    width: 80%;
+    height: 350px;
+}
+
 @media(max-width: 600px){
     .Seller{
         text-align: center;

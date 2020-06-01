@@ -9,7 +9,7 @@ class GetCategory extends Component{
    
 
     componentDidMount(){
-        this.props.fetchData(this.props.token)
+        this.props.fetchData(this.props.token, this.props.user)
     }
 
 
@@ -68,6 +68,7 @@ class GetCategory extends Component{
 const mapStateToProps = state => {
     return{
         token: state.auth.token,
+        user: state.auth.label,
         category: state.category.category,
         isLoading: state.category.isLoading
     }
@@ -75,7 +76,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        fetchData: (token) => dispatch(actions.categoryFetch(token))
+        fetchData: (token, label) => dispatch(actions.categoryFetch(token, label))
     }
 }
 
