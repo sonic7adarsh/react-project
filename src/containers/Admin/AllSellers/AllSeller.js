@@ -5,6 +5,7 @@ import Button from '../../../components/UI/Button/Button'
 import classes from './AllSellers.module.css'
 import axios from 'axios'
 import Spinner from '../../../components/UI/Spinner/Spinner'
+import {Redirect} from 'react-router-dom'
 
 class AllSellers extends Component{
     state = {
@@ -111,21 +112,16 @@ class AllSellers extends Component{
         )
         let label = null
         if(this.state.activate){
-            label = <p>Seller Activated Successfully</p>
+            label = <Redirect to="/updated"/>
         }
         if(this.state.deactivate){
-            label = <p>Seller DE-Activated Successfully</p>
+            label = <Redirect to="/updated"/>
         }
-        let spin = null
         if(this.state.spinner){
-            spin = <Spinner/>
+            content = <Spinner/>
         }
         return(
             <div className={classes.Set}>
-                <div className={classes.Spin}>
-                    {spin}
-                </div>
-                
                 <p><strong>All Sellers</strong></p>
                 {label}
                 {content}

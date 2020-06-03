@@ -1,4 +1,8 @@
-.View1{
+.Spin{
+    text-align: center;
+}
+
+.View{
     padding: 10px;
     margin: 20px 38px;
     width: 245px;
@@ -10,7 +14,7 @@
     box-sizing: border-box;
 }
 
-.Pic1 img{
+.Pic img{
     width: 95%;
     height: 250px;
 }
@@ -18,12 +22,11 @@
 
 
 
-
 @media(max-width: 500px){
-    .Products{
+    /* .Products{
         align-items: center;
     }
     .Product{
         padding: 5px 5px 5px 5px ;
-    }
+    } */
 }

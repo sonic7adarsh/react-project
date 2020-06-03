@@ -12,6 +12,10 @@
     margin-top: 30px;
 }
 
+.Error{
+    color: red;
+}
+
 @media(min-width: 600px){
     .Category{
         width: 500px;

@@ -49,6 +49,10 @@ th{
 
 }
 
+.Error{
+    color: red;
+}
+
 .Center{
     text-align: center;
 }

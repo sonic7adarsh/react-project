@@ -6,6 +6,7 @@ import classes from './CategoryById.module.css'
 import {updatedObject} from '../../../shared/utility'
 import Button from  '../../../components/UI/Button/Button'
 import Input from '../../../components/UI/Input/Input'
+import {Redirect} from 'react-router-dom'
 
 class CategoryById extends Component {
     state = {
@@ -24,7 +25,9 @@ class CategoryById extends Component {
                 touched: false
             }
         },
-        form: false
+        form: false,
+        update: false,
+        refresh: false
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -41,10 +44,12 @@ class CategoryById extends Component {
     
 
     onSubmit = (id) => {
+        this.setState({refresh: true})
         this.props.dataFetched(this.props.token,id)
     }
 
     onUpdate = (id) => {
+        this.setState({update: true})
         this.props.dataUpdate(this.props.token,id,this.state.controls.name.value)
     }
 
@@ -54,7 +59,7 @@ class CategoryById extends Component {
         })
     }
     render(){
-
+        console.log('eror>>>>'+this.props.error)
         let authElementArray = [];
         for( let key in this.state.controls){
             authElementArray.push({
@@ -100,7 +105,7 @@ class CategoryById extends Component {
             content = null
         }
         let show =null
-        if(this.props.data.length > 0){
+        if(this.props.data.length > 0 && this.state.refresh){
             show = (
                 <div className={classes.Data}>
                     <p><strong>Associated Data</strong></p>
@@ -113,10 +118,10 @@ class CategoryById extends Component {
         }
         let error = null
         if(this.props.error){
-            error = this.props.error
+            error = <div className={classes.Error}><p>{this.props.error}</p></div>
         }
         let shows = null
-       if(this.state.form){
+       if(this.state.form ){
         shows =
         <form className = {classes.Form}>
             {data}
@@ -124,10 +129,15 @@ class CategoryById extends Component {
             {auth}
         </form>
        }
-        
+       let redirect = null
+       console.log('update--------'+this.props.update)
+        if(this.state.update && this.props.update){
+            redirect = <Redirect to="/updated"/>
+        }
         return(
             <div>
                 <div>
+                    {redirect}
                     <GetCategory onSubmitHandler={this.onSubmit}
                                  onUpdateHandler={this.onUpdate}/>
                 </div> 
@@ -150,7 +160,8 @@ const mapStateToProps = state => {
         token: state.auth.token,
         data: state.category.idData,
         isLoading: state.category.isLoading,
-        error: state.category.error
+        error: state.category.error,
+        update: state.category.update
 
     }
 }

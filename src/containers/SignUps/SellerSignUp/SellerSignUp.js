@@ -4,7 +4,9 @@ import Input from '../../../components/UI/Input/Input'
 import Button from '../../../components/UI/Button/Button'
 import classes from './SellerSignUp.module.css'
 import {Redirect} from 'react-router-dom'
-import axios from 'axios'
+import * as actions from '../../../store/action/index'
+import Spinner from '../../../components/UI/Spinner/Spinner'
+import {connect} from 'react-redux'
 
 class SellerDetail extends Component {
     state = {
@@ -162,7 +164,7 @@ class SellerDetail extends Component {
                 valid: false,
                 touched: false
             },
-            state:{
+            states:{
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
@@ -230,7 +232,8 @@ class SellerDetail extends Component {
                 touched: false
             }
         },
-        isSignup: false
+        isSignup: false,
+        refresh: false
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -247,49 +250,26 @@ class SellerDetail extends Component {
     submitHandler = (event) => {
         event.preventDefault()
         this.setState({
-            isSignup: true
+            isSignup: true,
+            refresh: true
         })
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/e-commerce/register/register-seller',
-            data: {
-                email: this.state.controls.email.value,
-                firstName: this.state.controls.firstName.value,
-                middleName: this.state.controls.middleName.value,
-                lastName: this.state.controls.lastName.value,
-                profile: this.state.controls.profile.value,
-                password: this.state.controls.password.value,
-                confirmPassword: this.state.controls.confirmPassword.value,
-                gst: this.state.controls.gst.value,
-                companyContact: this.state.controls.companyContact.value,
-                companyName: this.state.controls.companyName.value,
-                addresses: [
-                    {
-                       city: this.state.controls.city.value,
-                       state: this.state.controls.state.value,
-                       country: this.state.controls.country.value,
-                       address: this.state.controls.address.value,
-                       zipCode: this.state.controls.zipcode.value,
-                       label: this.state.controls.label.value
-                    }
-                ]
-                },
-            headers: {
-                'Content-Type': 'application/json',
-            }})
-        .then(
-            response => {
-               console.log('successfull')
-               console.log(response.data)
-            }
-        )
-        .catch(
-            err => {
-                console.log(err.response.data)
-                console.log('not success')
-            }
-        )
-
+        this.props.sellerData(
+            this.state.controls.firstName.value,
+            this.state.controls.middleName.value,
+            this.state.controls.lastName.value,
+            this.state.controls.companyContact.value,
+            this.state.controls.email.value,
+            this.state.controls.profile.value,
+            this.state.controls.password.value,
+            this.state.controls.confirmPassword.value,
+            this.state.controls.companyName.value,
+            this.state.controls.gst.value,
+            this.state.controls.city.value,
+            this.state.controls.states.value,
+            this.state.controls.country.value,
+            this.state.controls.zipcode.value,
+            this.state.controls.address.value,
+            this.state.controls.label.value)
     }
 
     render(){
@@ -311,13 +291,22 @@ class SellerDetail extends Component {
           
         ))
         let homePath = null
-        if(this.state.isSignup){
+        if(this.state.isSignup && !this.props.loading && !this.props.error){
             homePath = <Redirect to = "/login" /> 
         }
-
+        let data = null
+        if(this.props.error && this.state.refresh){
+            data = <div className={classes.Data}><p>{this.props.error}</p></div>
+        }
+        let spinner = null
+        if(this.props.loading && !this.props.error){
+            spinner = <div><Spinner/></div>
+        }
         return(
             <div className={classes.Detail}>
                 {homePath}
+                {data}
+                {spinner}
                 <p>Please Enter the Details</p>
                 <form onSubmit={this.submitHandler}>
                     {detail}
@@ -330,4 +319,19 @@ class SellerDetail extends Component {
 }
 
 
-export default SellerDetail
+const mapStatetoProps = state => {
+    return{ 
+        loading: state.signup.isLoading,
+        data: state.signup.data,
+        error: state.signup.error
+    }
+}
+
+const mapDispatchToProps = dispatch =>{
+    return{
+        sellerData: (firstName,middleName,lastName,companyContact,email,profile,password,confirmPassword,companyName,gst,city
+            ,states,country,zipcode,address,label) => dispatch(actions.sellerSignup(firstName,middleName,lastName,companyContact,email,profile,password,confirmPassword,companyName,gst,city
+                ,states,country,zipcode,address,label))
+    }
+}
+export default connect(mapStatetoProps,mapDispatchToProps)(SellerDetail)

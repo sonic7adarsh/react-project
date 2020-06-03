@@ -48,7 +48,7 @@ class GetCategory extends Component{
        
         let spin = null
         if(this.props.isLoading){
-            spin = <Spinner/>
+            spin = <div className={classes.Spin}><Spinner/></div>
         }
         return(
             <div className={classes.Set}>

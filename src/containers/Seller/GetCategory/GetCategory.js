@@ -21,6 +21,8 @@ class GetCategory extends Component{
                             <td>NAME</td>
                             <td>PARENT ID</td>
                             <td>PARENT NAME</td>
+                            <td>FIELD</td>
+                            <td>VALUE</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,7 +32,14 @@ class GetCategory extends Component{
                             <td>{data.name}</td>
                             <td>{data.parent ? data.parent.id : 'N/A' }</td>
                             <td>{data.parent ? data.parent.name : 'N/A' }</td>
-                        </tr>   
+                            {data.categoryMetadataFieldValues.map(da => (
+                            <td>
+                                {da.categoryMetadataField.name}
+                            </td>))}
+                            {data.categoryMetadataFieldValues.map(da => (
+                            <td>{da.value}</td>
+                            ))}
+                         </tr>   
                         ))}
                     </tbody>
                 </table>

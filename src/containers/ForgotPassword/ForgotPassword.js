@@ -1,13 +1,12 @@
 import React,{Component} from 'react'
-import Input from '../UI/Input/Input'
-import Button from '../UI/Button/Button'
+import Input from '../../components/UI/Input/Input'
+import Button from '../../components/UI/Button/Button'
 import {updatedObject} from '../../shared/utility'
-import classes from './ResendLink.module.css'
+import classes from './Forgot.module.css'
 import axios from 'axios'
-import Spinner from '../UI/Spinner/Spinner'
+import Spinner from '../../components/UI/Spinner/Spinner'
 
-
-class ResendLink extends Component {
+class ForgotPassword extends Component{
     state = {
         controls: {
             email:{
@@ -47,23 +46,23 @@ class ResendLink extends Component {
 
     submitHandler = (event) => {
         event.preventDefault()
-        this.setState({isLoading: true})
+        this.setState({isLoading:true})
         axios({
             method: 'Post',
-            url: 'http://localhost:8080/e-commerce/register/resend-link',
+            url: 'http://localhost:8080/e-commerce/user/forgot-password',
             params:{
                 email: this.state.controls.email.value,
             },
             headers: {'Content-Type': 'application/json',
                 }
             })
-        .then(response => {
-            this.setState({isLoading: false,
+            .then(response => {
+                this.setState({isLoading: false,
                 msg: 'Check the mail'})
-        }).catch( err => {
-            this.setState({isLoading: false,
-            msg: err.response.data.message})
-        })
+            }).catch( err => {
+                this.setState({isLoading: false,
+                msg: err.response.data.message})
+            })
     }
 
 
@@ -86,14 +85,17 @@ class ResendLink extends Component {
                 changed={(event) => this.inputChangedHandler(event,ele.id)}/>
           
         ))
-        let data =  null
-        if(this.state.isLoading){
-            data = <Spinner/>
-        }
+            let data = null
+            if(this.state.isLoading){
+                data = <div className={classes.Spin}>
+                            <Spinner/>
+                        </div>
+            }
         let content = null
         if(this.state.msg){
             content = <div className={classes.Data}>{this.state.msg}</div>
         }
+
         return(
             <div className={classes.Link}>
                 {data}
@@ -109,4 +111,4 @@ class ResendLink extends Component {
     }
 }
 
-export default ResendLink
+export default(ForgotPassword)

@@ -159,6 +159,8 @@ class GetProduct extends Component {
                                 <td>QUANTITY AVAILABLE</td>
                                 <td>PRICE</td>
                                 <td>IMAGE</td>
+                                <td>FIELD</td>
+                                <td>VALUE</td>
                                 <td>IS_ACTIVE</td>
                             </tr>
                         </thead>
@@ -169,7 +171,10 @@ class GetProduct extends Component {
                                 <td>{det.quantityAvailable}</td>
                                 <td>{det.price}</td>
                                 <td>{det.productVariationImage}</td>
+                                <td>{Object.keys(det.metaData)}</td>
+                                <td>{Object.values(det.metaData)}</td>
                                 <td>{String(det.active)}</td>
+                               
                             </tr>   
                             ))}
                         </tbody>

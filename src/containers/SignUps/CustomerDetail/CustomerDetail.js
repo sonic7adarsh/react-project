@@ -4,6 +4,7 @@ import Input from '../../../components/UI/Input/Input'
 import Button from '../../../components/UI/Button/Button'
 import classes from './CustomerDetail.module.css'
 import {Redirect} from 'react-router-dom'
+import Spinner from '../../../components/UI/Spinner/Spinner'
 import {connect} from 'react-redux'
 import * as actions from '../../../store/action/index'
 
@@ -123,7 +124,8 @@ class Detail extends Component {
                 touched: false
             }
         },
-        isSignup: false
+        isSignup: false,
+        refresh: false
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -140,7 +142,8 @@ class Detail extends Component {
     submitHandler = (event) => {
         event.preventDefault()
         this.setState({
-            isSignup: true
+            isSignup: true,
+            refresh: true
         })
         this.props.onsignUp(this.state.controls.email.value, this.state.controls.password.value, 
         this.state.controls.confirmPassword.value, this.state.controls.firstName.value, this.state.controls.middleName.value,
@@ -166,13 +169,21 @@ class Detail extends Component {
           
         ))
         let homePath = null
-        if(this.state.isSignup){
+        if(this.state.isSignup && !this.props.loading && !this.props.error){
             homePath = <Redirect to = "/login" /> 
         }
+        let data = null
+        if(this.props.loading){
+            data = <Spinner/>
+        }
 
+        if(this.props.error && this.state.refresh){
+            data = <div className={classes.Data}><p>{this.props.error}</p></div>
+        }
         return(
             <div className={classes.Detail}>
                 {homePath}
+                {data}
                 <p>Please Enter the Details</p>
                 <form onSubmit={this.submitHandler}>
                     {detail}
@@ -185,7 +196,9 @@ class Detail extends Component {
 }
 const mapStatetoProps = state => {
     return{ 
-        loading: state.signup.loading
+        loading: state.signup.isLoading,
+        data: state.signup.data,
+        error: state.signup.error
     }
 }
 

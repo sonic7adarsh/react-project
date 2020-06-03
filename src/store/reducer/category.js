@@ -4,8 +4,10 @@ import {updatedObject} from '../../shared/utility'
 const initialState = {
     category: [],
     idData: [],
+    subData: [],
     isLoading: false,
-    error: null
+    error: null,
+    update: false
 }
 
 const categoryStart = (state,action) => {
@@ -27,12 +29,13 @@ const categoryFail = (state,action) => {
 }
 
 const categoryUpdateStart = (state,action) => {
-    return updatedObject(state, {error: null, isLoading: true})
+    return updatedObject(state, {error: null, isLoading: true, update: null})
 }
 
 const categoryUpdateSuccess = (state,action) => {
     return updatedObject(state, {
         error: null,
+        update: action.done,
         isLoading: false
     })
 }
@@ -40,12 +43,13 @@ const categoryUpdateSuccess = (state,action) => {
 const categoryUpdateFail = (state,action) => {
     return updatedObject(state, {
         error: action.error,
+        update: null,
         isLoading: false
     })
 }
-
+// ----------------------------
 const categoryFetchStart = (state,action) => {
-    return updatedObject(state, {error: null, isLoading: true})
+    return updatedObject(state, {error: null,category: [], isLoading: true})
 }
 
 const categoryFetchSuccess = (state,action) => {
@@ -63,8 +67,9 @@ const categoryFetchFail = (state,action) => {
     })
 }
 
+// --------------------------------------------
 const categoryFetchByIdStart = (state,action) => {
-    return updatedObject(state, {error: null, isLoading: true})
+    return updatedObject(state, {error: null,idData: [], isLoading: true})
 }
 
 const categoryFetchByIdSuccess = (state,action) => {
@@ -82,6 +87,47 @@ const categoryFetchByIdFail = (state,action) => {
     })
 }
 
+// -------------------------
+const categoryDetailFetchStart = (state,action) => {
+    return updatedObject(state, {error: null,idData: null, isLoading: true})
+}
+
+const categoryDetailFetchSuccess = (state,action) => {
+    return updatedObject(state, {
+        error: null,
+        idData: action.data,
+        isLoading: false
+    })
+}
+
+const categoryDetailFetchFail = (state,action) => {
+    return updatedObject(state, {
+        error: action.error,
+        isLoading: false
+    })
+}
+
+
+const subCategoryStart = (state,action) => {
+    return updatedObject(state, {error: null, isLoading: true})
+}
+
+const subCategorySuccess = (state,action) => {
+    console.log('reducer se'+action.data)
+    return updatedObject(state, {
+        error: null,
+        isLoading: false,
+        subData: action.data
+    })
+}
+
+const subCategoryFail = (state,action) => {
+    return updatedObject(state, {
+        error: action.error,
+        isLoading: false
+    })
+}
+
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
@@ -91,24 +137,42 @@ const reducer = (state = initialState, action) => {
             return categorySuccess(state,action)
         case actions.CATEGORY_POST_FAIL:
             return categoryFail(state,action)
+
         case actions.CATEGORY_FETCH_START:
             return categoryFetchStart(state,action)
         case actions.CATEGORY_FETCH_SUCCESS:
             return categoryFetchSuccess(state,action)
         case actions.CATEGORY_FETCH_FAIL:
             return categoryFetchFail(state,action)
+
         case actions.CATEGORY_FETCH_BY_ID_START:
             return categoryFetchByIdStart(state,action)
         case actions.CATEGORY_FETCH_BY_ID_SUCCESS:
             return categoryFetchByIdSuccess(state,action)
         case actions.CATEGORY_FETCH_BY_ID_FAIL:
             return categoryFetchByIdFail(state,action)
+
         case actions.CATEGORY_UPDATE_START:
             return categoryUpdateStart(state,action)
         case actions.CATEGORY_UPDATE_SUCCESS:
             return categoryUpdateSuccess(state,action)
         case actions.CATEGORY_UPDATE_FAIL:
             return categoryUpdateFail(state,action)
+
+        case actions.CATEGORY_DETAIL_FETCH_START:
+            return categoryDetailFetchStart(state,action)
+        case actions.CATEGORY_DETAIL_FETCH_SUCCESS:
+            return categoryDetailFetchSuccess(state,action)
+        case actions.CATEGORY_DETAIL_FETCH_FAIL:
+            return categoryDetailFetchFail(state,action)
+
+        case actions.SUB_FETCH_START:
+            return subCategoryStart(state,action)
+        case actions.SUB_FETCH_SUCCESS:
+            return subCategorySuccess(state,action)
+        case actions.SUB_FETCH_FAIL:
+            return subCategoryFail(state,action)
+            
         default:
             return state
     }

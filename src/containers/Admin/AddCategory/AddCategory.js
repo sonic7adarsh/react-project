@@ -85,7 +85,7 @@ class AddCategory extends Component {
 
         let error = null 
         if(this.props.error){
-            error = this.props.error
+            error = <div className={classes.Error}><p>{this.props.error}</p></div>
         }
             
         return(

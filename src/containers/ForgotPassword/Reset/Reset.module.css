@@ -12,10 +12,13 @@
     margin-top: 30px;
 }
 
+.Spin{
+    text-align: center;
+}
+
 .Data{
     color: red;
 }
-
 @media(min-width: 600px){
     .Link{
         width: 500px;

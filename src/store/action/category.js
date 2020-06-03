@@ -146,9 +146,10 @@ export const categoryUpdateStart = () => {
     }
 }
 
-export const categoryUpdateSuccess = () => {
+export const categoryUpdateSuccess = (done) => {
     return{
-        type: actionTypes.CATEGORY_UPDATE_SUCCESS
+        type: actionTypes.CATEGORY_UPDATE_SUCCESS,
+        done: done
     }
 }
 
@@ -176,7 +177,7 @@ export const categoryUpdate =  (token,id, name) => {
         .then(response => {
             console.log('in fetch data oof customer')
             console.log(response.data)
-            dispatch(categoryUpdateSuccess())
+            dispatch(categoryUpdateSuccess(true))
         }).catch( err => {
             console.log('in side catch')
             console.log(err.response)
@@ -185,3 +186,122 @@ export const categoryUpdate =  (token,id, name) => {
     }
 }
 
+export const categoryList = (token) => {
+    return dispatch => {
+        dispatch(categoryFetchStart())
+        axios({
+            method: 'Get',
+            url: `http://localhost:8080/e-commerce/customer/home/get-category`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+                }
+         })
+        .then(response => {
+            const fetchedData = []
+            for( let key in response.data){
+                fetchedData.push({
+                    ...response.data[key],
+                })
+            }
+            dispatch(categoryFetchSuccess(fetchedData))
+        }).catch( err => {
+            console.log(err.response)
+            dispatch(categoryFetchFail())
+        })
+    }
+}
+
+
+export const categoryDetailFetchStart = () => {
+    return{
+        type: actionTypes.CATEGORY_DETAIL_FETCH_START
+    }
+}
+
+export const categoryDetailFetchSuccess = (data) => {
+    return{
+        type: actionTypes.CATEGORY_DETAIL_FETCH_SUCCESS,
+        data: data
+    }
+}
+
+export const categoryDetailFetchFail = () => {
+    return{
+        type: actionTypes.CATEGORY_DETAIL_FETCH_FAIL
+    }
+}
+
+
+export const categoryProduct = (token,id) => {
+    return dispatch => {
+        dispatch(categoryDetailFetchStart())
+        axios({
+            method: 'Get',
+            url: `http://localhost:8080/e-commerce/customer/home/product-by-category/${id}`,
+            headers: {
+                'Authorization': 'Bearer ' + token
+                }
+         })
+        .then(response => {
+            const fetchedData = []
+            for( let key in response.data){
+                fetchedData.push({
+                    ...response.data[key],
+                })
+            }
+            console.log('data aaya'+fetchedData)
+            dispatch(categoryDetailFetchSuccess(fetchedData))
+        }).catch( err => {
+            console.log(err.response)
+            dispatch(categoryDetailFetchFail())
+        })
+    }
+}
+
+
+export const subFetchStart = () => {
+    return{
+        type: actionTypes.SUB_FETCH_START
+    }
+}
+
+export const subFetchSuccess = (data) => {
+    return{
+        type: actionTypes.SUB_FETCH_SUCCESS,
+        data: data
+    }
+}
+
+export const subFetchFail = () => {
+    return{
+        type: actionTypes.SUB_FETCH_FAIL
+    }
+}
+
+
+export const subCategoryList = (token,id) => {
+    return dispatch => {
+        dispatch(subFetchStart())
+        axios({
+            method: 'Get',
+            url: `http://localhost:8080/e-commerce/customer/home/get-child-category/${id}`,
+            headers: {
+                'Authorization': 'Bearer ' + token
+                }
+         })
+        .then(response => {
+            const fetchedData = []
+            for( let key in response.data){
+                fetchedData.push({
+                    ...response.data[key],
+                })
+            }
+            console.log('sub data aaya'+fetchedData)
+            dispatch(subFetchSuccess(fetchedData))
+        }).catch( err => {
+            console.log(err.response)
+            dispatch(subFetchFail())
+        })
+    }
+}

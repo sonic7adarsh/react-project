@@ -10,9 +10,9 @@ const initialState = {
     loading: false,
     error: null
 }
-
+// -----------------------------
 const fetchStart = (state,action) => {
-    return updatedObject(state, {error: null, loading: true})
+    return updatedObject(state, {error: null,products:[], loading: true})
 }
 
 const fetchSuccess = (state,action) => {
@@ -41,9 +41,9 @@ const deleteSuccess = (state,action) => {
 const deleteFail = (state,action) => {
     return updatedObject(state, {loading: false})
 }
-
+// --------------------------------------
 const adminfetchStart = (state,action) => {
-    return updatedObject(state, {error: null, loading: true})
+    return updatedObject(state, {error: null,productFetched: [],loading: true})
 }
 
 const adminfetchSuccess = (state,action) => {
@@ -56,9 +56,9 @@ const adminfetchSuccess = (state,action) => {
 const adminfetchFail = (state,action) => {
     return updatedObject(state, {loading: false})
 }
-
+// ---------------------------------------------
 const productDataStart = (state,action) => {
-    return updatedObject(state, {error: null, loading: true})
+    return updatedObject(state, {error: null,productData: [],loading: true})
 }
 
 const productDataSuccess = (state,action) => {

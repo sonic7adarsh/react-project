@@ -31,6 +31,10 @@ import GetCategory from './containers/Seller/GetCategory/GetCategory';
 import Home from './containers/Customer/ProductVariation/ProductVariation';
 import VariationDetail from './containers/Customer/VariationDetail/VariationDetail';
 import SameProduct from './containers/Customer/SameProduct/SameProduct';
+import CategoryList from './containers/Customer/CategoryList/CategoryList';
+import ProductView from './containers/Customer/CategoryProductView/ProductView';
+import ForgotPassword from './containers/ForgotPassword/ForgotPassword';
+import Reset from './containers/ForgotPassword/Reset/Reset';
 
 const asyncProfile = asyncComponent(() => {
   return import('./containers/Customer/CustomerProfile/CustomerProfile')
@@ -58,7 +62,6 @@ class App extends Component{
       route = (
         <Switch>
           <Route path="/edit-profile/password" component={EditPassword}/>
-          <Route path="/updated" exact component={UpdateMsg}/>
           <Route path="/get-category" component={GetCategory}/>
           <Route path="/add/product-variation" component={ProductVariation}/>
           <Route path="/seller/products" component={SellerProduct}/>
@@ -78,18 +81,21 @@ class App extends Component{
         <Switch>
           {/* <Route path='/variation/detail' component={VariationDetail}/> */}
           <Route path="/edit-profile/password" component={EditPassword}/>
-          <Route path="/updated" exact component={UpdateMsg}/>
           <Route path="/edit-profile" exact component={EditProfile}/>
           <Route path="/edit-profile/address" component={EditAddress}/>
           <Route path="/add-address" component={SetAddress}/>
           <Route path="/my-profile" component={asyncProfile}/>
           <Route path='/similar/product' component={SameProduct}/>
+          <Route path='/customer/category' component={CategoryList}/>
+          <Route path='/category/product' component={ProductView}/>
         </Switch>
       )
     }
     return(
       <Layout>
           {route}
+          <Route path="/updated" exact component={UpdateMsg}/>
+          <Route path="/reset/password" component={Reset}/>
           <Route path="/Design" component={Design}/>
           <Route path='/variation/detail' component={VariationDetail}/>
           <Route path="/signup/customer" component={CustomerDetail}/>
@@ -97,6 +103,7 @@ class App extends Component{
           <Route path="/signup/seller" component={SellerSignUp}/>
           <Route path="/login" component={Auth}/>
           <Route path="/logout" component={Logout}/>
+          <Route path="/forgot/password" component={ForgotPassword}/>
           <Route path="/" exact component={Home}/>
       </Layout>
       

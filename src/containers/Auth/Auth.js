@@ -56,8 +56,9 @@ class Auth extends Component {
                 touched: false
             },
         },
-        isSignup: false
+        refresh: false
     }
+
 
     inputChangedHandler = (event, controlName) => {
         const updatedControls = updatedObject(this.state.controls,{
@@ -82,6 +83,7 @@ class Auth extends Component {
 
     signinHandler = (event) => {
         event.preventDefault()
+        this.setState({refresh: true})
         this.props.onAuth(this.state.controls.email.value,  this.state.controls.password.value, this.state.controls.label.value)
     }
 
@@ -89,6 +91,11 @@ class Auth extends Component {
         event.preventDefault()
         this.props.history.push('/resend-link');
 
+    }
+
+    forgotHandler = (event) => {
+        event.preventDefault()
+        this.props.history.push('/forgot/password')
     }
 
 
@@ -114,8 +121,12 @@ class Auth extends Component {
         ))
 
         let authRedirect = null
-        if(this.props.isAuthenticated){
+        if(this.props.isAuthenticated && !this.props.error){
             authRedirect = <Redirect to={this.props.onSetAuthRedirectPath()} />
+        }
+        let data = null
+        if(this.props.error && this.state.refresh){
+            data = <div className={classes.Data}><p>Please check the credentials login failed</p></div>
         }
 
         let pageContent = null
@@ -127,6 +138,7 @@ class Auth extends Component {
             <div className={classes.Auth}>
                 {authRedirect}
                 {pageContent}
+                {data}
                 <p>Please Enter the credentials for log in.....</p>
                 <form onSubmit = {this.signinHandler}>
                     {auth}
@@ -136,8 +148,13 @@ class Auth extends Component {
                 <div>
                     <Button btnType="Danger" clicked= {this.signupCustomerHandler}>Sign up as Customer</Button>
                     <Button btnType="Danger" clicked= {this.signupSellerHandler}>Sign up as Seller</Button>
-                    <Button btnType="Danger" clicked= {this.resendHandler}>Resend Activation Link</Button>
                 </div>
+                <div>
+                    <Button btnType="Danger" clicked= {this.resendHandler}>Resend Activation Link</Button>
+                    <Button btnType="Danger" clicked={this.forgotHandler}>Forgot Password..?</Button>
+                </div>
+                    
+                
             </div>
         )
     }

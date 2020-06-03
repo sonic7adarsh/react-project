@@ -12,6 +12,9 @@
     margin-top: 30px;
 }
 
+.Data{
+    color: red;
+}
 @media(min-width: 600px){
     .Detail{
         width: 500px;

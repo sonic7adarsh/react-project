@@ -12,6 +12,10 @@
     margin-top: 30px;
 }
 
+.Data{
+    text-align: center;
+    color: red;
+}
 @media(min-width: 600px){
     .Metadata{
         width: 500px;

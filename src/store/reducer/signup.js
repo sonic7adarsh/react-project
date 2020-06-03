@@ -3,7 +3,8 @@ import {updatedObject} from '../../shared/utility'
 
 const initialState = {
     isLoading: false,
-    error: null
+    error: null,
+    data: null
 }
 
 const signupStart = (state,action) => {
@@ -13,13 +14,14 @@ const signupStart = (state,action) => {
 const signupSuccess = (state,action) => {
     return updatedObject(state, {
         error: null,
+        data: action.data,
         isLoading: false
     })
 }
 
 const signupFail = (state,action) => {
     return updatedObject(state, {
-        // error: action.error,
+        error: action.err,
         isLoading: false
     })
 }

@@ -25,7 +25,8 @@ export{
 } from './productVariation'
 
 export{
-    signup
+    signup,
+    sellerSignup
 } from './signup'
 
 export{
@@ -57,5 +58,8 @@ export{
     category,
     categoryFetch,
     categoryFetchById,
-    categoryUpdate
+    categoryUpdate,
+    categoryList,
+    categoryProduct,
+    subCategoryList
 } from './category'

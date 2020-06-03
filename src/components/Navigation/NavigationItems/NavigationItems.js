@@ -67,6 +67,9 @@ class NavigationItems extends Component{
              {this.props.isAuth
             ? <NavigationItem link="/edit-profile/password" >ResetPassword</NavigationItem>
             : <NavigationItem link="/items" >Trending Items</NavigationItem>}
+            {this.props.isAuth
+            ? <NavigationItem link="/customer/category" >All Category</NavigationItem>
+            : <NavigationItem link="/items" >Trending Items</NavigationItem>}
      
         </ul>)}
         if(this.props.label==='seller'){
@@ -99,6 +102,7 @@ class NavigationItems extends Component{
             {this.props.isAuth
             ? <NavigationItem link="/get-category" >Get Category</NavigationItem>
             : <NavigationItem link="/items" >Trending Items</NavigationItem>}
+            
 
         </ul>)}
         

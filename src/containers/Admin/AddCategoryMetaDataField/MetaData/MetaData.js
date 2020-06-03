@@ -28,7 +28,8 @@ class MetaData extends Component {
                 touched: false
             }
         },            
-        isLoading: false
+        isLoading: false,
+        success: false
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -44,6 +45,7 @@ class MetaData extends Component {
 
     onSubmitHandler = (event) => {
         event.preventDefault()
+        this.setState({success: true})
         this.props.fetchData(this.props.token, this.state.controls.metaDataField.value)
     }
 
@@ -74,12 +76,16 @@ class MetaData extends Component {
         ))
 
         let content = null 
-        if(this.props.isLoading){
+        if(this.props.loading){
             content = <Spinner/>
         }
         let error=null
         if(this.props.error){
-            error=this.props.error            
+            error = <div className={classes.Data}>{this.props.error}</div>
+        }
+        let success=null
+        if(!this.props.error && this.state.success && !this.props.loading){
+            success = <div className={classes.Data}>Successfully Added</div>
         }
 
             
@@ -87,6 +93,7 @@ class MetaData extends Component {
             <div className={classes.Metadata}>
                 {content}
                 {error}
+                {success}
                 <p><strong>Please Enter The Required Field .....</strong></p>
                 <form>
                     {form}
@@ -111,7 +118,7 @@ class MetaData extends Component {
 const mapStateToProps = state => {
     return{
         token: state.auth.token,
-        isLoading: state.metadata.isLoading,
+        loading: state.metadata.isLoading,
         error: state.metadata.error
     }
 }

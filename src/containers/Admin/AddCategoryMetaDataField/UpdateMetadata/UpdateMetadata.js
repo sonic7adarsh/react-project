@@ -92,20 +92,9 @@ class UpdateMetaData extends Component {
           
         ))
 
-        let content = null 
-        if(this.props.isLoading){
-            content = <Spinner/>
-        }
-
-        let error = null 
-        if(this.props.error){
-            error = this.props.error
-        }
             
         return(
             <div className={classes.Metadata}>
-                {content}
-                {error}
                 <p><strong>Please Enter The Required Field .....</strong></p>
                 <form>
                     {form}
