@@ -62,9 +62,28 @@ export const adminfetchFail = () => {
     }
 }
 
+export const sellerfetchStart = () => {
+    return{
+        type: actionTypes.SELLER_PRODUCT_START
+    }
+}
+
+export const sellerfetchSuccess = (products) => {
+    return{
+        type: actionTypes.SELLER_PRODUCT_SUCCESS,
+        products: products
+    }
+}
+
+export const sellerfetchFail = () => {
+    return{
+        type: actionTypes.SELLER_PRODUCT_FAIL
+    }
+}
+
 export const sellerProductFetch =  (token) => {
     return dispatch => {
-        dispatch(adminfetchStart())
+        dispatch(sellerfetchStart())
         axios({
             method: 'get',
             url: 'http://localhost:8080/e-commerce/seller/home/all-products',
@@ -80,10 +99,10 @@ export const sellerProductFetch =  (token) => {
                 })
             }
             console.log(fetcedProducts)
-            dispatch(adminfetchSuccess(fetcedProducts))
+            dispatch(sellerfetchSuccess(fetcedProducts))
         }).catch( err => {
             console.log(err.response)
-            dispatch(adminfetchFail())
+            dispatch(sellerfetchFail())
         })
     }
 }
@@ -182,10 +201,28 @@ export const productfetch =  (token) => {
     }
 }
 
+export const activateStart = () => {
+    return{
+        type: actionTypes.ACTIVATE_START
+    }
+}
+
+export const activateSuccess = (data) => {
+    return{
+        type: actionTypes.ACTIVATE_SUCCESS,
+        data: data
+    }
+}
+
+export const activateFail = () => {
+    return{
+        type: actionTypes.ACTIVATE_FAIL
+    }
+}
 
 export const productActivate =  (token,id) => {
     return dispatch => {
-        dispatch(adminfetchStart())
+        dispatch(activateStart())
         axios({
             method: 'put',
             url: `http://localhost:8080/e-commerce/admin/home/activate-product/${id}`,
@@ -195,18 +232,17 @@ export const productActivate =  (token,id) => {
             })
         .then(response => {
             console.log(response.data)
-            dispatch(adminfetchFail())
+            dispatch(activateSuccess(true))
         }).catch( err => {
             console.log(err.response)
-            dispatch(adminfetchFail())
+            dispatch(activateFail())
         })
     }
 }
 
-
 export const productDeactivate =  (token,id) => {
     return dispatch => {
-        dispatch(adminfetchStart())
+        dispatch(activateStart())
         axios({
             method: 'put',
             url: `http://localhost:8080/e-commerce/admin/home/de-activate-product/${id}`,
@@ -216,10 +252,10 @@ export const productDeactivate =  (token,id) => {
             })
         .then(response => {
             console.log(response.data)
-            dispatch(adminfetchFail())
+            dispatch(activateSuccess(true))
         }).catch( err => {
             console.log(err.response)
-            dispatch(adminfetchFail())
+            dispatch(activateFail())
         })
     }
 }
@@ -307,6 +343,7 @@ export const productPost =  (name,brand,description,categoryId, token) => {
         .then(response => {
             dispatch(productPostSuccess(response.data))
         }).catch( err => {
+            console.log('xiuzoidh'+err.response.data.message)
             dispatch(productPostFail(err.response.data.message))
         })
     }
@@ -332,9 +369,10 @@ export const productVariationPost =  (id, quantity, price,image,field,value, tok
             }
             })
         .then(response => {
+            console.log('response'+response.data)
             dispatch(productPostSuccess(response.data))
         }).catch( err => {
-            console.log(err.response)
+            console.log('error'+err.response.data)
             dispatch(productPostFail(err.response.data.message))
         })
     }

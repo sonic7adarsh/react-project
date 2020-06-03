@@ -5,10 +5,12 @@ const initialState = {
     products: [],
     productFetched: [],
     productData: [],
+    sellerProduct:[],
     msg: [],
     delete: null,
     loading: false,
-    error: null
+    error: null,
+    activity: false
 }
 // -----------------------------
 const fetchStart = (state,action) => {
@@ -56,6 +58,21 @@ const adminfetchSuccess = (state,action) => {
 const adminfetchFail = (state,action) => {
     return updatedObject(state, {loading: false})
 }
+// -------------------------------
+const sellerfetchStart = (state,action) => {
+    return updatedObject(state, {error: null,sellerProduct: [],loading: true})
+}
+
+const sellerfetchSuccess = (state,action) => {
+    return updatedObject(state, {
+        sellerProduct: action.products,
+        loading: false
+    })
+}
+
+const sellerfetchFail = (state,action) => {
+    return updatedObject(state, {loading: false})
+}
 // ---------------------------------------------
 const productDataStart = (state,action) => {
     return updatedObject(state, {error: null,productData: [],loading: true})
@@ -85,6 +102,22 @@ const productPostSuccess = (state,action) => {
 
 const productPostFail = (state,action) => {
     return updatedObject(state, {error: action.err,loading: false})
+}
+
+
+const activityStart = (state,action) => {
+    return updatedObject(state, {error: null,activity:false, loading: true})
+}
+
+const activitySuccess = (state,action) => {
+    return updatedObject(state, {
+        activity: action.data,
+        loading: false
+    })
+}
+
+const activityFail = (state,action) => {
+    return updatedObject(state, {activity:false,loading: false})
 }
 
 const reducer = (state = initialState, action) => {
@@ -123,6 +156,20 @@ const reducer = (state = initialState, action) => {
             return deleteSuccess(state,action)
         case actions.DELETE_PRODUCT_FAIL:
             return deleteFail(state,action)
+
+        case actions.ACTIVATE_START:
+            return activityStart(state,action)
+        case actions.ACTIVATE_SUCCESS:
+            return activitySuccess(state,action)
+        case actions.ACTIVATE_FAIL:
+            return activityFail(state,action)
+
+        case actions.SELLER_PRODUCT_START:
+            return sellerfetchStart(state,action)
+        case actions.SELLER_PRODUCT_SUCCESS:
+            return sellerfetchSuccess(state,action)
+        case actions.SELLER_PRODUCT_FAIL:
+            return sellerfetchFail(state,action)
         default:
             return state
     }

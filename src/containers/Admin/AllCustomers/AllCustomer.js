@@ -34,12 +34,10 @@ class AllCustomers extends Component{
                 activate: true,
                 spinner: false
             })
-                console.log(response.data)
             }).catch(error => {
                 this.setState({
                     spinner: false
                 })
-                console.log(error.response)
         });
     }
 
@@ -59,20 +57,15 @@ class AllCustomers extends Component{
                     deactivate: true,
                     spinner: false
                 })
-                console.log(response.data)
             }).catch(error => {
                 this.setState({
                     spinner: false
                 })
-                console.log(error.response)
         });
     }
 
 
     render(){
-        console.log('in all customer')
-        console.log(this.props)
-        console.log(this.props.customers)
         let content = null
         content = (
             <div className = {classes.AllCustomer}>

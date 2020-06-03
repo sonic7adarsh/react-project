@@ -13,7 +13,6 @@ class GetMetadata extends Component{
 
 
     render(){
-        console.log(this.props.metadata)
         let content = null
         content = (
             <div className = {classes.Data}>

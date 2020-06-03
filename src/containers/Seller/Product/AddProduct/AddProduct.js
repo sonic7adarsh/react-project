@@ -66,7 +66,8 @@ class AddProduct extends Component{
                 touched: false
             },
         },
-        isSignup: false
+        isSignup: false,
+        refresh: false
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -83,7 +84,8 @@ class AddProduct extends Component{
     submitHandler = (event) => {
         event.preventDefault()
         this.setState({
-            isSignup: true
+            isSignup: true,
+            refresh: true
         })
         this.props.onAdd(this.state.controls.name.value, this.state.controls.brand.value, 
         this.state.controls.description.value, this.state.controls.categoryId.value, this.props.token)
@@ -113,8 +115,7 @@ class AddProduct extends Component{
             spin = <div className={classes.Update}>
                         <Spinner/>
                     </div>
-        }    
-        console.log('message porf'+this.props.msg)
+        }   
         return(
             <div className={classes.Product}>
                 <div className={classes.Green}><p>{this.props.msg}</p></div>

@@ -51,6 +51,7 @@ export const update = (fName,lName,companyContact,companyName,gst,token) => {
     }
 }
 
+
 export const updatePassword = (token,label,password,confirmPassword) => {
     return dispatch => {
         dispatch(updateStart())

@@ -4,8 +4,13 @@ import * as actions from '../../../../store/action/index'
 import classes from './GetProduct.module.css'
 import Button from '../../../../components/UI/Button/Button'
 import Spinner from '../../../../components/UI/Spinner/Spinner'
+import { Redirect } from 'react-router'
 
 class GetProduct extends Component {
+    state = {
+        activate: false,
+        deactivate: false
+    }
 
     componentDidMount(){
         this.props.fetch(this.props.token)
@@ -14,11 +19,12 @@ class GetProduct extends Component {
     activateHandler = (id,event) => {
         event.preventDefault()
         this.props.activate(this.props.token, id)
+        this.setState({activate: true})
     }
 
 
     deactivateHandler = (id) => {
-        console.log('products')
+        this.setState({deactivate: true})
         this.props.deActivate(this.props.token, id)
     }
 
@@ -29,9 +35,8 @@ class GetProduct extends Component {
 
 
     render(){
-        console.log('produtc.....'+this.props.product)
         let addcontent = null
-        if(this.props.product.length>0){
+        if(this.props.product.length>0  && !this.props.isLoading){
         addcontent = (
             <div className = {classes.Customer}>
                 <table>
@@ -94,9 +99,15 @@ class GetProduct extends Component {
             content = <Spinner/>
         }
         let label = null
-       
+       if(this.props.active && this.state.activate){
+           label = <Redirect to="/updated"/>
+       }
+       if(this.props.active && this.state.deactivate){
+        label = <Redirect to="/updated"/>
+        }
         return(
             <div className={classes.Get}>
+                {label}
                 {content}
                 {addcontent}
             </div>
@@ -109,7 +120,8 @@ const mapStateToProps = state => {
         token: state.auth.token,
         isLoading: state.product.loading,
         data: state.product.productFetched,
-        product: state.product.productData
+        product: state.product.productData,
+        active: state.product.activity
     }
 }
 

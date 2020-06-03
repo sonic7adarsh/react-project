@@ -2,7 +2,6 @@ import React ,{Component} from 'react'
 import classes from './UpdateMetadata.module.css'
 import Button from '../../../../components/UI/Button/Button'
 import Input from '../../../../components/UI/Input/Input'
-import Spinner from '../../../../components/UI/Spinner/Spinner'
 import {updatedObject} from '../../../../shared/utility'
 import {connect} from 'react-redux'
 import * as actions from '../../../../store/action/index'
@@ -70,7 +69,7 @@ class UpdateMetaData extends Component {
     onSubmitHandler = (event) => {
         event.preventDefault()
         this.props.updateData(this.props.token, this.state.controls.categoryId.value, 
-            this.state.controls.categorymetadataFieldId.value, this.state.controls.values.value)
+        this.state.controls.categorymetadataFieldId.value, this.state.controls.values.value)
     }
 
     render(){

@@ -39,7 +39,8 @@ class AddCategory extends Component {
                 touched: false
             }
         },            
-        isLoading: false
+        isLoading: false,
+        refresh: false
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -55,8 +56,9 @@ class AddCategory extends Component {
 
     onSubmitHandler = (event) => {
         event.preventDefault()
+        this.setState({refresh: true})
         this.props.fetchData(this.props.token, this.state.controls.parentId.value, 
-            this.state.controls.name.value)
+        this.state.controls.name.value)
     }
 
     render(){
@@ -84,7 +86,7 @@ class AddCategory extends Component {
         }
 
         let error = null 
-        if(this.props.error){
+        if(this.props.error && this.state.refresh){
             error = <div className={classes.Error}><p>{this.props.error}</p></div>
         }
             

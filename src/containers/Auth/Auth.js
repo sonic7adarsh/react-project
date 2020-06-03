@@ -72,8 +72,6 @@ class Auth extends Component {
     }
     
     signupCustomerHandler = () => {
-        console.log("in the auth")
-        console.log(this.props)
         this.props.history.push('/signup/customer');
     }
 

@@ -14,7 +14,6 @@ class GetCategory extends Component{
 
 
     render(){
-        console.log(this.props.category)
         let content = null
 
         content = (

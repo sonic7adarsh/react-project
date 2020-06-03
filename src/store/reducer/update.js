@@ -21,6 +21,7 @@ const updateSuccess = (state,action) => {
 }
 
 const updateFail = (state,action) => {
+    console.log('reduce'+action.error)
     return updatedObject(state, {error: action.error, loading: false})
 }
 

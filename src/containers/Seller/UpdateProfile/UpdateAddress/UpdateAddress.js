@@ -6,6 +6,7 @@ import Input from '../../../../components/UI/Input/Input'
 import Button from '../../../../components/UI/Button/Button'
 import {connect} from 'react-redux'
 import * as actions from '../../../../store/action/index'
+import { Redirect } from 'react-router'
 
 class UpdateProfile extends Component{
     state = {
@@ -104,8 +105,112 @@ class UpdateProfile extends Component{
                 touched: false
             },
         },
+        refresh: false
     }
 
+    componentDidMount(){
+        this.props.address.map(da => {
+            da.addresses.map(add => {
+                this.setState({
+                    controls: {
+                        addressId:{
+                            elementType: 'input',
+                            elementConfig: {
+                                type: 'text',
+                                placeholder: 'Please enter Address unique id'
+                            },
+                            value: add.id,
+                            validation:{
+                                required: true,
+                            },
+                            valid: false,
+                            touched: false
+                        },
+                        city:{
+                            elementType: 'input',
+                            elementConfig: {
+                                type: 'text',
+                                placeholder: 'Please enter name of the city'
+                            },
+                            value: add.city,
+                            validation:{
+                                required: true,
+                            },
+                            valid: false,
+                            touched: false
+                        },
+                        state:{
+                            elementType: 'input',
+                            elementConfig: {
+                                type: 'text',
+                                placeholder: 'Please enter name of the state'
+                            },
+                            value: add.state,
+                            validation:{
+                                required: true,
+                            },
+                            valid: false,
+                            touched: false
+                        },
+                        country:{
+                            elementType: 'input',
+                            elementConfig: {
+                                type: 'text',
+                                placeholder: 'Please enter name of the country'
+                            },
+                            value: add.country,
+                            validation:{
+                                required: true,
+                            },
+                            valid: false,
+                            touched: false
+                        },
+                        zipcode:{
+                            elementType: 'input',
+                            elementConfig: {
+                                type: 'text',
+                                placeholder: 'Please enter your ZipCode'
+                            },
+                            value: add.zipCode,
+                            validation:{
+                                required: true,
+                            },
+                            valid: false,
+                            touched: false
+                        },
+                        address:{
+                            elementType: 'textarea',
+                            elementConfig: {
+                                type: 'text',
+                                placeholder: 'Please enter the address'
+                            },
+                            value: add.address,
+                            validation:{
+                                required: true,
+                            },
+                            valid: false,
+                            touched: false
+                        },
+                        label:{
+                            elementType: 'select',
+                            elementConfig: {
+                                options:[
+                                    {value: 'home', displayValue: 'Home'},
+                                    {value: 'work', displayValue: 'Work'}
+                                ]
+                            },
+                            value: add.label,
+                            validation:{
+                                required: true,
+                            },
+                            valid: false,
+                            touched: false
+                        },
+                    }
+            })
+          
+          })})
+    }
 
     inputChangedHandler = (event, controlName) => {
         const updatedControls = updatedObject(this.state.controls,{
@@ -123,6 +228,7 @@ class UpdateProfile extends Component{
         this.props.onUpdate(this.state.controls.addressId.value, this.state.controls.city.value, 
         this.state.controls.state.value, this.state.controls.country.value, this.state.controls.address.value,
         this.state.controls.zipcode.value,this.state.controls.label.value, this.props.token, this.props.user)
+        this.setState({refresh: true})
     }
 
     render(){
@@ -149,11 +255,17 @@ class UpdateProfile extends Component{
                         <Spinner/>
                     </div>
         }    
+        let redirect
+        if(this.state.refresh && !this.props.loading){
+            redirect = <Redirect to="/updated"/>
+        }
+        
         return(
             <div className={classes.Update}>
+                {redirect}
+                {spin}
                 <p>Please Enter the Details</p>
                 <form onSubmit={this.submitHandler}>
-                    {spin}
                     {detail}
                 </form>
                 <div>
@@ -168,7 +280,8 @@ const mapStatetoProps = state => {
     return{ 
         token: state.auth.token,
         user: state.auth.label,
-        loading: state.update.loading
+        loading: state.update.loading,
+        address: state.profile.profileData
     }
 }
 

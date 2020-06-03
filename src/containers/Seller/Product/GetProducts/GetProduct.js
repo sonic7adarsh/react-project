@@ -11,6 +11,8 @@ import Input from '../../../../components/UI/Input/Input'
 class GetProduct extends Component {
     state = {
         redirect: false,
+        refresh: false,
+        updateRedirect: false,
         toggle: false,
         controls: {
             name:{
@@ -41,7 +43,7 @@ class GetProduct extends Component {
                 valid: false,
                 touched: false
             }
-        }
+        },
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -70,7 +72,7 @@ class GetProduct extends Component {
     updateHandler = (id,event) => {
         event.preventDefault()
         console.log(id)
-        this.setState({redirect: true})
+        this.setState({updateRedirect: true,refresh: true})
         this.props.update(this.props.token, id, this.state.controls.name.value, this.state.controls.description.value)
 
     }
@@ -82,8 +84,9 @@ class GetProduct extends Component {
     }
 
     toggleHandler = () => {
-        this.setState({toggle: !this.state.toggle})
-    } 
+        this.setState({
+        toggle: !this.state.toggle,
+    })} 
 
     render(){
         console.log(this.props.detail.metaData)
@@ -171,8 +174,8 @@ class GetProduct extends Component {
                                 <td>{det.quantityAvailable}</td>
                                 <td>{det.price}</td>
                                 <td>{det.productVariationImage}</td>
-                                <td>{Object.keys(det.metaData)}</td>
-                                <td>{Object.values(det.metaData)}</td>
+                                <td>{det.metaData ? Object.keys(det.metaData): null}</td>
+                                <td>{det.metaData ? Object.values(det.metaData):null}</td>
                                 <td>{String(det.active)}</td>
                                
                             </tr>   
@@ -188,18 +191,27 @@ class GetProduct extends Component {
         }
         
         
+        let updateRedirect = null
+        if(this.props.success==='Product Updated' && this.state.updateRedirect){
+            updateRedirect = <Redirect to="/updated"/>
+        }
         let redirect = null
-        console.log('delete'+ this.props.del)
         if(this.state.redirect){
             redirect = <Redirect to="/updated"/>
         }
-       
+        let error = null
+        if(this.props.err && this.state.refresh){
+        error = <div className={classes.Data}><p>{this.props.err}</p></div>
+        }
+       console.log('ksamxlkas'+this.props.err)
         return(
             <div className={classes.Get}>
                 {redirect}
+                {updateRedirect}
                 {addcontent}
                 <div className={classes.Switch}>
-                <Button btnType="Danger" clicked={this.toggleHandler}>{!this.state.toggle ? 'Click if you want to update product' : 'Hide'}</Button>
+                    <Button btnType="Danger" clicked={this.toggleHandler}>{!this.state.toggle ? 'Click if you want to update product' : 'Hide'}</Button>
+                    {error}
                     {auth}
                 </div>
                 
@@ -215,9 +227,12 @@ const mapStateToProps = state => {
     return{
         token: state.auth.token,
         isLoading: state.product.loading,
-        product: state.product.productFetched,
+        product: state.product.sellerProduct,
         detail: state.product.productData,
-        del: state.product.deleted
+        del: state.product.deleted,
+        error: state.product.error,
+        err: state.update.error,
+        success: state.update.success
     }
 }
 

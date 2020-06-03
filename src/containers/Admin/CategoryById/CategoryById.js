@@ -59,7 +59,6 @@ class CategoryById extends Component {
         })
     }
     render(){
-        console.log('eror>>>>'+this.props.error)
         let authElementArray = [];
         for( let key in this.state.controls){
             authElementArray.push({
@@ -130,7 +129,6 @@ class CategoryById extends Component {
         </form>
        }
        let redirect = null
-       console.log('update--------'+this.props.update)
         if(this.state.update && this.props.update){
             redirect = <Redirect to="/updated"/>
         }

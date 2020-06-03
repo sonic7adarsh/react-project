@@ -39,7 +39,8 @@ class EditPassword extends Component{
                 touched: false
             }
         },
-        isUpdated: false
+        isUpdated: false,
+        refresh: false
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -56,6 +57,7 @@ class EditPassword extends Component{
 
     onsubmitHandler = (event) => {
         event.preventDefault()
+        this.setState({refresh: true})
         this.props.update(this.props.token,this.props.label,this.state.controls.password.value,
             this.state.controls.confirmPassword.value)
     }
@@ -90,7 +92,7 @@ class EditPassword extends Component{
             spin = <Spinner/>
         }
         let msg = null
-        if(this.props.msg){
+        if(this.props.msg && this.state.refresh){
             msg = this.props.msg
         }
         console.log('msg'+ msg)
