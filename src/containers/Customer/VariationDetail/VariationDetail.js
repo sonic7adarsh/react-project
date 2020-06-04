@@ -12,7 +12,6 @@ class VariationDetails extends Component{
 
 
     render(){
-        console.log(this.props.data)
         let products = this.props.data.map(product => (
             <div className={classes.Variation} key={product.id}>
                 <div className={classes.Image}>

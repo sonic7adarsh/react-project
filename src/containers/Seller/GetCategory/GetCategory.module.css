@@ -19,11 +19,6 @@ th{
     text-align: center;
 }
 
-/* tbody td{
-    color: green;
-} */
-
-
 .Set p{
     text-align: center;
 }
@@ -43,8 +38,12 @@ th{
     .Data{
         margin-left: 10px;
         margin-right: 10px;
+        width: 50%;
     }
 
+    .State{
+        text-align: center;
+    }
     .Set p{
         margin-left: 250px;
         text-align: center;
@@ -52,6 +51,7 @@ th{
 
     table{
         text-align: center;
+        width: 50%;
     }
     
     .Spin{

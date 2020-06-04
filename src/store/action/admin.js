@@ -37,13 +37,9 @@ export const seller =  (token) => {
                     ...response.data[key],
                     
                 })
-                // console.log()
             }
-            console.log('in fetch data oof customer')
-            console.log(fetcedSellers)
             dispatch(sellerFetchSuccess(fetcedSellers))
         }).catch( err => {
-            console.log(err.response)
             dispatch(sellerFetchFail())
         })
     }
@@ -72,7 +68,6 @@ export const customerFetchFail = () => {
 export const customer =  (token) => {
     return dispatch => {
         dispatch(customerFetchStart())
-        // axios.get('http://localhost:8080/e-commerce/admin/home/customers/0')
         axios({
             method: 'Get',
             url: 'http://localhost:8080/e-commerce/admin/home/customers/0',
@@ -87,13 +82,9 @@ export const customer =  (token) => {
                     ...response.data[key],
                     
                 })
-                // console.log()
             }
-            console.log('in fetch data oof customer')
-            console.log(fetcedCustomers)
             dispatch(customerFetchSuccess(fetcedCustomers))
         }).catch( err => {
-            console.log(err.response)
             dispatch(customerFetchFail())
         })
     }

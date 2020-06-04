@@ -23,7 +23,6 @@ export const fetchFail = () => {
 }
 
 export const fetch = (token) => {
-    console.log('fetch data')
     return dispatch => {
         dispatch(fetchStart())
         axios({
@@ -66,7 +65,6 @@ export const addressFetchFail = () => {
 
 
 export const addressFetch = (token) => {
-    console.log('address fetch')
     return dispatch => {
         dispatch(addressFetchStart())
         axios({
@@ -79,12 +77,8 @@ export const addressFetch = (token) => {
             .then(response => {
                 let fetchedData = [];
                 fetchedData = [...response.data]
-                console.log(response)
-                console.log('success')
-                console.log(fetchedData)
                 dispatch(addressFetchSuccess(fetchedData))
             }).catch( err => {
-                console.log(err.response)
                 dispatch(addressFetchFail())
             })
     }

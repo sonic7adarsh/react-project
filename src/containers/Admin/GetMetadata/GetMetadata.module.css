@@ -35,12 +35,11 @@ th{
 
 @media(max-width: 500px){
     .Data{
-        margin-left: 10px;
+        margin-left: 130px;
         margin-right: 10px;
     }
 
-    .Set p{
-        margin-left: 250px;
+    p{
         text-align: center;
     }
 

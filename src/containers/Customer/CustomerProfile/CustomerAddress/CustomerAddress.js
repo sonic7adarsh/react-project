@@ -27,9 +27,7 @@ class CustomerAddress extends Component {
         })
         .then(response => {
             this.setState({data: true})
-            console.log(response.data)
         }).catch(error => {
-            console.log(error.response)
         });
     }
 
@@ -43,8 +41,6 @@ class CustomerAddress extends Component {
       
 
     render(){
-           console.log('customer adddress ke andaar') 
-           console.log(this.props.addressData)
            let content = null
            if(this.state.data){
               content = <Redirect to="/updated" />

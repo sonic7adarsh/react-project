@@ -49,7 +49,7 @@ const categoryUpdateFail = (state,action) => {
 }
 // ----------------------------
 const categoryFetchStart = (state,action) => {
-    return updatedObject(state, {error: null,category: [], isLoading: true})
+    return updatedObject(state, {error: null, isLoading: true})
 }
 
 const categoryFetchSuccess = (state,action) => {
@@ -69,7 +69,7 @@ const categoryFetchFail = (state,action) => {
 
 // --------------------------------------------
 const categoryFetchByIdStart = (state,action) => {
-    return updatedObject(state, {error: null,idData: [], isLoading: true})
+    return updatedObject(state, {error: null, isLoading: true})
 }
 
 const categoryFetchByIdSuccess = (state,action) => {
@@ -89,7 +89,7 @@ const categoryFetchByIdFail = (state,action) => {
 
 // -------------------------
 const categoryDetailFetchStart = (state,action) => {
-    return updatedObject(state, {error: null,idData: null, isLoading: true})
+    return updatedObject(state, {error: null, isLoading: true})
 }
 
 const categoryDetailFetchSuccess = (state,action) => {

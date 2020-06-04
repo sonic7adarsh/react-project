@@ -31,12 +31,9 @@ export const product =  () => {
                     ...response.data[key],
                     
                 })
-                // console.log()
             }
-            console.log(fetcedProducts)
             dispatch(fetchSuccess(fetcedProducts))
         }).catch( err => {
-            console.log(err.response)
             dispatch(fetchFail())
         })
     }
@@ -98,10 +95,8 @@ export const sellerProductFetch =  (token) => {
                     ...response.data[key],
                 })
             }
-            console.log(fetcedProducts)
             dispatch(sellerfetchSuccess(fetcedProducts))
         }).catch( err => {
-            console.log(err.response)
             dispatch(sellerfetchFail())
         })
     }
@@ -140,7 +135,6 @@ export const deleteProduct =  (token,id) => {
         .then(response => {
             dispatch(deleteProductSuccess('deleted'))
         }).catch( err => {
-            console.log(err.response)
             dispatch(deleteProductFail())
         })
     }
@@ -164,10 +158,8 @@ export const viewProduct =  (token,id) => {
                     
                 })
             }
-            console.log('product view'+fetcedProducts)
             dispatch(datafetchSuccess(fetcedProducts))
         }).catch( err => {
-            console.log(err.response)
             dispatch(datafetchFail())
         })
     }
@@ -192,10 +184,8 @@ export const productfetch =  (token) => {
                     
                 })
             }
-            console.log(fetcedProducts)
             dispatch(adminfetchSuccess(fetcedProducts))
         }).catch( err => {
-            console.log(err.response)
             dispatch(adminfetchFail())
         })
     }
@@ -231,10 +221,8 @@ export const productActivate =  (token,id) => {
             }
             })
         .then(response => {
-            console.log(response.data)
             dispatch(activateSuccess(true))
         }).catch( err => {
-            console.log(err.response)
             dispatch(activateFail())
         })
     }
@@ -251,10 +239,8 @@ export const productDeactivate =  (token,id) => {
             }
             })
         .then(response => {
-            console.log(response.data)
             dispatch(activateSuccess(true))
         }).catch( err => {
-            console.log(err.response)
             dispatch(activateFail())
         })
     }
@@ -295,10 +281,8 @@ export const productDetail =  (token,id) => {
                     ...response.data,
                     
                 })
-            console.log(fetcedProducts)
             dispatch(datafetchSuccess(fetcedProducts))
         }).catch( err => {
-            console.log(err.response)
             dispatch(datafetchFail())
         })
     }
@@ -343,7 +327,6 @@ export const productPost =  (name,brand,description,categoryId, token) => {
         .then(response => {
             dispatch(productPostSuccess(response.data))
         }).catch( err => {
-            console.log('xiuzoidh'+err.response.data.message)
             dispatch(productPostFail(err.response.data.message))
         })
     }
@@ -369,10 +352,8 @@ export const productVariationPost =  (id, quantity, price,image,field,value, tok
             }
             })
         .then(response => {
-            console.log('response'+response.data)
             dispatch(productPostSuccess(response.data))
         }).catch( err => {
-            console.log('error'+err.response.data)
             dispatch(productPostFail(err.response.data.message))
         })
     }
@@ -400,30 +381,7 @@ export const productVariationUpdate =  (id, quantity, price, image, field,value,
         .then(response => {
             dispatch(productPostSuccess(response.data))
         }).catch( err => {
-            console.log(err.response)
             dispatch(productPostFail(err.response.data.message))
         })
     }
 }
-
-// export const products =  () => {
-//     return dispatch => {
-//         dispatch(fetchStart())
-//         axios.get('http://localhost:8080/e-commerce/register/home/variations')
-//         .then(response => {
-//             const fetcedProducts = [];
-//             for( let key in response.data){
-//                 fetcedProducts.push({
-//                     ...response.data[key],
-                    
-//                 })
-//                 // console.log()
-//             }
-//             console.log(fetcedProducts)
-//             dispatch(fetchSuccess(fetcedProducts))
-//         }).catch( err => {
-//             console.log(err.response)
-//             dispatch(fetchFail())
-//         })
-//     }
-// }

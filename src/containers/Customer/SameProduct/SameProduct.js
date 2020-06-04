@@ -6,7 +6,6 @@ import SimilarProduct from './SimilarProducts/SimilarProduct'
 class SameProduct extends Component {
 
     clickHandler =(productId) => {
-        console.log(productId)
         this.props.productVariation(productId, this.props.token)
         this.props.history.push('/variation/detail')
     }
@@ -15,10 +14,6 @@ class SameProduct extends Component {
         return(
             <div>
                 <SimilarProduct clicked={this.clickHandler}/>
-
-                {/* {this.props.variationList.map(variation => (
-                    console.log(variation)
-                ))} */}
             </div>
             
         )

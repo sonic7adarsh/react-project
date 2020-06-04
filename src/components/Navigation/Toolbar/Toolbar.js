@@ -1,7 +1,8 @@
 import React from 'react';
 import classes from './Toolbar.module.css';
 import Logo from '../../Logo/Logo';
-import NavigationItems from '../NavigationItems/NavigationItems'
+// import NavigationItems from '../NavigationItems/NavigationItems'
+import Nav from '../UpperNavigation/UpperNav'
 import DrawerToggel from '../SideDrawer/DrawerToggle/DrawerToggle'
 import Search from '../../Search/Search'
 
@@ -16,7 +17,7 @@ const toolbar = (props) => (
             <Search/>
         </div>
         <nav className={classes.DesktopOnly}>
-            <NavigationItems isAuth = {props.isAuthenticated}/>            
+            <Nav isAuth = {props.isAuthenticated}/>            
         </nav>
     </header>
 )

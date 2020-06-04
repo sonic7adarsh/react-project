@@ -1,9 +1,10 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
-import Button from '../../../components/UI/Button/Button'
-import Input from '../../../components/UI/Input/Input'
+import Spinner from '../../../../components//UI/Spinner/Spinner'
+import Button from '../../../../components/UI/Button/Button'
+import Input from '../../../../components/UI/Input/Input'
 import classes from './EditAddress.module.css'
-import {updatedObject} from '../../../shared/utility'
+import {updatedObject} from '../../../../shared/utility'
 import {Redirect} from 'react-router'
 import axios from 'axios'
 
@@ -92,7 +93,11 @@ class EditAddress extends Component {
             },
             
         },
-        isUpdated: false
+        isUpdated: false,
+        isLoading: false,
+        error: null,
+        success: null, 
+        refresh: false
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -107,7 +112,12 @@ class EditAddress extends Component {
     }
 
     onSubmitHandler = (addressId) => {
-        // event.preventDefault()
+        this.setState({
+            refresh: true,
+            isLoading: true,
+            error: null,
+            success: null
+        })
         axios({
             method: 'Put',
             url: `http://localhost:8080/e-commerce/customer/home/update-address/${addressId}`,
@@ -125,11 +135,16 @@ class EditAddress extends Component {
             })
         .then(response => {
             this.setState({
-                isUpdated: true
+                refresh: true,
+                isLoading: false,
+                success: response.data
             })
-            console.log(response)
         }).catch( err => {
-            console.log(err.response)
+            this.setState({
+                isLoading: false,
+                error: err.response.data.message,
+                refresh: true
+            })
         })
     }
 
@@ -151,12 +166,28 @@ class EditAddress extends Component {
                 changed={(event) => this.inputChangedHandler(event,addressElement.id)}/>
           
         ))
+        let spin = null
+        if(this.state.isLoading){
+            spin = <Spinner/>
+        }
+
+        let error = null
+        if(this.state.error && this.state.refresh && !this.state.isLoading){
+            error = <div className={classes.Data}><p>{this.state.error}</p></div>
+        }
+        let success = null 
+        if(this.state.success){
+            success = <div className={classes.Data}><p>{this.state.success}</p></div>
+        }
 
         let content = null
         if(!this.state.isUpdated)
         {
             content =(
                 <div className={classes.Detail}>
+                    {spin}
+                    {error}
+                    {success}
                     <p>Please Enter the Address Detail For Updation</p>
                     <form>
                         {address}
@@ -188,7 +219,6 @@ class EditAddress extends Component {
 const mapSateToProps = state => {
     return{
         token: state.auth.token,
-        // user: state.auth.user,
         addressData: state.profile.addressData
     }
 }

@@ -14,3 +14,11 @@
     width: 100%;
     height: 300px;
 }
+
+@media(max-width: 500px){
+    .containerSlide{
+        width: 90%;
+        margin-left: 25px;
+    }
+    
+}

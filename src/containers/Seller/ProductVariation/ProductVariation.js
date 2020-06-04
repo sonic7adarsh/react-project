@@ -93,7 +93,8 @@ class AddProductVariation extends Component{
                 touched: false
             }
         },
-        isSignup: false
+        isSignup: false,
+        refresh: false
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -110,7 +111,8 @@ class AddProductVariation extends Component{
     submitHandler = (event) => {
         event.preventDefault()
         this.setState({
-            isSignup: true
+            isSignup: true,
+            refresh: true
         })
         this.props.onAdd(this.state.controls.productId.value, this.state.controls.quantity.value, 
         this.state.controls.price.value, this.state.controls.image.value,this.state.controls.field.value, this.state.controls.values.value, 
@@ -151,12 +153,19 @@ class AddProductVariation extends Component{
             spin = <div className={classes.Update}>
                         <Spinner/>
                     </div>
+        }
+        let msg = null
+        if(this.state.refresh){
+            msg = <div className={classes.Green}><p>{this.props.msg}</p></div>
+        }
+        let error = null  
+        if(this.state.refresh){
+            error = <div className={classes.RED}><p>{this.props.error}</p></div>
         }    
-        console.log('message porf'+this.props.msg)
         return(
             <div className={classes.ProductVar}>
-                <div className={classes.Green}><p>{this.props.msg}</p></div>
-                <div className={classes.RED}><p>{this.props.error}</p></div>
+                {msg}
+                {error}
                 <p>Please Enter the Details</p>
                 <form onSubmit={this.submitHandler}>
                     {spin}

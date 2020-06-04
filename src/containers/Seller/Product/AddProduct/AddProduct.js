@@ -116,10 +116,18 @@ class AddProduct extends Component{
                         <Spinner/>
                     </div>
         }   
+        let msg = null
+        if(this.state.refresh){
+            msg = <div className={classes.Green}><p>{this.props.msg}</p></div>
+        }
+        let error = null  
+        if(this.state.refresh){
+            error = <div className={classes.RED}><p>{this.props.error}</p></div>
+        }
         return(
             <div className={classes.Product}>
-                <div className={classes.Green}><p>{this.props.msg}</p></div>
-                <div className={classes.RED}><p>{this.props.error}</p></div>
+                {msg}
+                {error}
                 <p>Please Enter the Details</p>
                 <form onSubmit={this.submitHandler}>
                     {spin}

@@ -6,8 +6,6 @@ import * as actions from '../../../store/action/index'
 
 class CategoryList extends Component{
     showHandler = (id) => {
-        console.log(this.props.token)
-        console.log(this.props.token+'id'+id)
         this.props.categoryProd(this.props.token, id) 
         this.props.history.push('/category/product')
         

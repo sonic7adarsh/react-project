@@ -15,7 +15,11 @@
     height: 250px;
 }
 
-
+@media(max-width: 500px){
+    .View1{
+        margin-left: 100px;
+    }
+ }
 
 
 

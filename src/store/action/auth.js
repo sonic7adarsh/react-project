@@ -39,7 +39,6 @@ export const authFail = (error) => {
 }
 
 export const auth = (email,password,label) => {
-    console.log('its started '+label)
     return dispatch => {
         dispatch(authStart());
         const authData = {
@@ -66,7 +65,6 @@ export const auth = (email,password,label) => {
         )
         .catch(
             err => {
-                console.log(err)
                 dispatch(authFail(err.response.data.error))
             }
         )

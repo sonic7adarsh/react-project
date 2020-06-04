@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 
 class SimilarProduct extends Component{
     render(){
-        console.log('similar Product---------'+this.props.similarProduct)
         let products = this.props.similarProduct.map(product => (
             <div className={classes.View1} key={product.id} onClick={this.props.clicked.bind(this,product.id)}>
                 <div className={classes.Pic1}>

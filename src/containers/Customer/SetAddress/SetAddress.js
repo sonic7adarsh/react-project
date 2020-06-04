@@ -5,6 +5,7 @@ import Button from '../../../components/UI/Button/Button'
 import classes from './SetAddress.module.css'
 import axios from 'axios'
 import {connect} from 'react-redux'
+import Spinner from '../../../components/UI/Spinner/Spinner'
 import { Redirect } from 'react-router'
 
 class SetAddress extends Component {
@@ -92,7 +93,11 @@ class SetAddress extends Component {
             },
             
         },
-        isUpdated: false
+        isUpdated: false,
+        isLoading: false,
+        error: null,
+        refresh: false,
+        success: null
     }
 
     inputChangedHandler = (event, controlName) => {
@@ -108,6 +113,12 @@ class SetAddress extends Component {
 
     onSubmitHandler = (event) => {
         event.preventDefault()
+        this.setState({
+            isLoading: true,
+            refresh: true,
+            error: null,
+            success: null
+        })
         axios({
             method: 'Post',
             url: 'http://localhost:8080/e-commerce/customer/home/save-address',
@@ -125,11 +136,19 @@ class SetAddress extends Component {
             })
         .then(response => {
             this.setState({
-                isUpdated: true
+                isLoading: false,
+                refresh: true,
+                error: null,
+                success: response.data
             })
-            console.log(response)
+            console.log(response.data)
         }).catch( err => {
-            console.log(err.response)
+            this.setState({
+                isLoading: false,
+                refresh: true,
+                error: err.response.data.message
+            })
+            console.log(err.response.data.message)
         })
     }
 
@@ -152,11 +171,24 @@ class SetAddress extends Component {
           
         ))
 
+        let err = null 
+        if(this.state.error && this.state.refresh){
+        err = <div className={classes.Data}><p>{this.state.error}</p></div>
+        }
+        let success = null
+        if(this.state.success){
+        success = <div className={classes.Data}><p>{this.state.success}</p></div>
+        }
         let content = null
-        if(!this.state.isUpdated)
+        if(this.state.isLoading && this.state.refresh)
         {
-            content =(
+            content = <div className={classes.Spin}><Spinner/></div>
+        }
+        return (
                 <div className={classes.Detail}>
+                    {err}
+                    {content}
+                    {success}
                     <p>Please Enter the Address Detail</p>
                     <form>
                         {address}
@@ -164,11 +196,7 @@ class SetAddress extends Component {
                     </form>
                     
                 </div>
-            ) 
-        }else{
-            content = <Redirect to= "/updated"/>
-        }
-        return content
+            )  
     }
 }
 

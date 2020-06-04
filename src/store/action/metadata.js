@@ -34,12 +34,8 @@ export const metadataField =  (token, data) => {
                 }
          })
         .then(response => {
-            console.log('in fetch data oof customer')
-            console.log(response.data)
             dispatch(metadataPostSuccess())
         }).catch( err => {
-            console.log('in side catch')
-            console.log(err.response.data.message)
             dispatch(metadataPostFail(err.response.data.message))
         })
     }
@@ -82,11 +78,8 @@ export const metadataValue =  (token, id, fieldId, value) => {
                 }
          })
         .then(response => {
-            console.log('data response')
-            console.log(response.data)
             dispatch(metadataValuePostSuccess())
         }).catch( err => {
-            console.log(err.response)
             dispatch(metadataValuePostFail(err.response.data.message))
         })
     }
@@ -157,11 +150,8 @@ export const updateMetadataValue =  (token, id, fieldId, value) => {
                 }
          })
         .then(response => {
-            console.log('data response')
-            console.log(response.data)
             dispatch(metadataValuePostSuccess())
         }).catch( err => {
-            console.log(err.response)
             dispatch(metadataValuePostFail(err.response.data.message))
         })
     }

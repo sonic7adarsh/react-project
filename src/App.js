@@ -8,9 +8,9 @@ import CustomerDetail from './containers/SignUps/CustomerDetail/CustomerDetail'
 import { Route , Switch }  from 'react-router-dom'
 import asyncComponent from './hoc/asyncComponent/asyncComponent'
 import SetAddress from './containers/Customer/SetAddress/SetAddress'
-import EditProfile from './containers/EditDetails/EditProfile/EditProfile'
+import EditProfile from './containers/Customer/EditDetails/EditProfile/EditProfile'
 import UpdateMsg from './components/Updated/UpdateMsg'
-import EditAddress from './containers/EditDetails/EditAddress/EditAddress'
+import EditAddress from './containers/Customer/EditDetails/EditAddress/EditAddress'
 import EditPassword from './containers/EditPassword/EditPassword'
 import SellerSignUp from './containers/SignUps/SellerSignUp/SellerSignUp'
 import ResendLink from './components/ResendLink/ResendLink'
@@ -80,9 +80,9 @@ class App extends Component{
       route = (
         <Switch>
           {/* <Route path='/variation/detail' component={VariationDetail}/> */}
-          <Route path="/edit-profile/password" component={EditPassword}/>
+          <Route path="/edit-password" component={EditPassword}/>
           <Route path="/edit-profile" exact component={EditProfile}/>
-          <Route path="/edit-profile/address" component={EditAddress}/>
+          <Route path="/edit-address" component={EditAddress}/>
           <Route path="/add-address" component={SetAddress}/>
           <Route path="/my-profile" component={asyncProfile}/>
           <Route path='/similar/product' component={SameProduct}/>

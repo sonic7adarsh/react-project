@@ -12,6 +12,10 @@
     margin-top: 30px;
 }
 
+.Data{
+    color: red;
+}
+
 @media(min-width: 600px){
     .EditProfile{
         width: 500px;

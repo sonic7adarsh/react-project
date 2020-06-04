@@ -23,7 +23,6 @@ export const signupFail = (err) => {
 }
 
 export const signup = (email,password, confirmPassword,firstName,middleName,profile,lastName,contactNo) => {
-    console.log('its started')
     return dispatch => {
         dispatch(signupStart());
         const signupData = {
@@ -50,7 +49,6 @@ export const signup = (email,password, confirmPassword,firstName,middleName,prof
         )
         .catch(
             err => {
-                console.log(err.response.data.message)
                 dispatch(signupFail(err.response.data.message))
             }
         )
@@ -92,15 +90,11 @@ export const sellerSignup = (firstName,middleName,lastName,companyContact,email,
             }})
         .then(
             response => {
-               console.log('successfull')
-               console.log(response.data)
                dispatch(signupSuccess('authenticated'))
             }
         )
         .catch(
             err => {
-                console.log(err.response.data)
-                console.log('not success')
                 dispatch(signupFail(err.response.data.message))
             }
         )

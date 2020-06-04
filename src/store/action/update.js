@@ -24,7 +24,6 @@ export const updateFail = (error) => {
 }
 
 export const update = (fName,lName,companyContact,companyName,gst,token) => {
-    console.log('Update data')
     return dispatch => {
         dispatch(updateStart())
         axios({
@@ -67,10 +66,8 @@ export const updatePassword = (token,label,password,confirmPassword) => {
                 }
             })
         .then(response => {
-            console.log(response.data)
             dispatch(updateSuccess(response.data))
         }).catch( err => {
-            console.log('password'+ err.response.data.message)
             dispatch(updateFail(err.response.data.message))
         })
     }
@@ -95,10 +92,8 @@ export const updateAddress = (id,city,state, country, address, zipcode, label, t
                 }
             })
         .then(response => {
-            console.log(response.data)
             dispatch(updateSuccess(response.data))
         }).catch( err => {
-            console.log('password'+ err.response.data.message)
             dispatch(updateFail(err.response.data.message))
         })
     }
@@ -119,10 +114,8 @@ export const updateProduct = (token, id, name, description) => {
                 }
             })
         .then(response => {
-            console.log(response.data)
             dispatch(updateSuccess(response.data))
         }).catch( err => {
-            console.log('password'+ err.response.data.message)
             dispatch(updateFail(err.response.data.message))
         })
     }

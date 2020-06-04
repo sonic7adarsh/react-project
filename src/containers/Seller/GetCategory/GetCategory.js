@@ -32,13 +32,13 @@ class GetCategory extends Component{
                             <td>{data.name}</td>
                             <td>{data.parent ? data.parent.id : 'N/A' }</td>
                             <td>{data.parent ? data.parent.name : 'N/A' }</td>
-                            {data.categoryMetadataFieldValues.map(da => (
-                            <td>
-                                {da.categoryMetadataField.name}
-                            </td>))}
-                            {data.categoryMetadataFieldValues.map(da => (
-                            <td>{da.value}</td>
-                            ))}
+                            <td>{data.categoryMetadataFieldValues.map(da => (
+                            <span>
+                                {da.categoryMetadataField.name}||
+                            </span>))}</td>
+                            <td>{data.categoryMetadataFieldValues.map(da => (
+                            <span>{da.value}||</span>
+                            ))}</td>
                          </tr>   
                         ))}
                     </tbody>
@@ -52,7 +52,7 @@ class GetCategory extends Component{
         }
         return(
             <div className={classes.Set}>
-                <div>
+                <div className={classes.State}>
                     <p><strong>Category Data....</strong></p>
                     {content}
                 </div>

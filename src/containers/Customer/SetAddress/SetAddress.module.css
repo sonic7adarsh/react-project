@@ -17,6 +17,14 @@
     margin-bottom: 30px;
 }
 
+.Data{
+    text-align: center,;
+    color: red;
+}
+
+.Spin{
+    text-align: center;
+}
 @media(min-width: 600px){
     .Detail{
         width: 500px;

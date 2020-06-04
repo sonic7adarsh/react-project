@@ -6,7 +6,6 @@ import CategoryById from '../CategoryById/CategoryById'
 class ProductView extends Component {
 
     clickHandler =(productId) => {
-        console.log(productId)
         this.props.productVariation(productId, this.props.token)
         this.props.history.push('/variation/detail')
     }
@@ -15,10 +14,6 @@ class ProductView extends Component {
         return(
             <div>
                 <CategoryById clicked={this.clickHandler}/>
-
-                {/* {this.props.variationList.map(variation => (
-                    console.log(variation)
-                ))} */}
             </div>
             
         )

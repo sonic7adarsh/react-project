@@ -25,13 +25,13 @@ class GetProfile extends Component{
                     <p>Gst:            <strong>{profiled.gst}</strong></p>
                     <p>companyName:    <strong>{profiled.companyName}</strong></p>
                     <p>companyContact: <strong>{profiled.companyContact}</strong></p>
-                    <p>Addresses ID:   <strong>{profiled.addresses[0].id}</strong></p>
-                    <p>City:           <strong>{profiled.addresses[0].city}</strong></p>
-                    <p>State:          <strong>{profiled.addresses[0].state}</strong></p>
-                    <p>Country:        <strong>{profiled.addresses[0].country}</strong></p>
-                    <p>Address:        <strong>{profiled.addresses[0].address}</strong></p>
-                    <p>Zipcode:        <strong>{profiled.addresses[0].zipCode}</strong></p>
-                    <p>Label:          <strong>{profiled.addresses[0].label}</strong></p>
+                    <p>Addresses ID:   <strong>{profiled.addresses[0] ? profiled.addresses[0].id : null}</strong></p>
+                    <p>City:           <strong>{profiled.addresses[0] ? profiled.addresses[0].city : null}</strong></p>
+                    <p>State:          <strong>{profiled.addresses[0] ? profiled.addresses[0].state : null}</strong></p>
+                    <p>Country:        <strong>{profiled.addresses[0] ? profiled.addresses[0].country : null}</strong></p>
+                    <p>Address:        <strong>{profiled.addresses[0] ? profiled.addresses[0].address : null}</strong></p>
+                    <p>Zipcode:        <strong>{profiled.addresses[0] ? profiled.addresses[0].zipCode : null}</strong></p>
+                    <p>Label:          <strong>{profiled.addresses[0] ? profiled.addresses[0].label : null}</strong></p>
 
                 </div>
                 

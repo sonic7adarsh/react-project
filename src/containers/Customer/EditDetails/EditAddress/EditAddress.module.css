@@ -25,11 +25,16 @@
 }
 
 .Detail ul li{
-padding-top: 10px;
+    padding-top: 10px;
+}
+
+.Data{
+    color: red;
 }
 
 @media(min-width: 600px){
     .Detail{
         width: 500px;
     }
+    
 }

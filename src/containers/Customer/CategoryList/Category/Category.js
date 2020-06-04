@@ -20,7 +20,6 @@ class Category extends Component{
     }
 
     render(){
-        console.log('subcategory Detali'+this.props.sub)
         let category = null
         category = <Spinner/>
         if(!this.props.isLoading){

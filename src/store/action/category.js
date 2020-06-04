@@ -36,12 +36,8 @@ export const category =  (token, id, name) => {
                 }
          })
         .then(response => {
-            console.log('in fetch data oof customer')
-            console.log(response.data)
             dispatch(categoryPostSuccess())
         }).catch( err => {
-            console.log('in side catch')
-            console.log(err.response.data.message)
             dispatch(categoryPostFail(err.response.data.message))
         })
     }
@@ -84,10 +80,8 @@ export const categoryFetch =  (token,label) => {
                     ...response.data[key],
                 })
             }
-            console.log(fetchedData)
             dispatch(categoryFetchSuccess(fetchedData))
          }).catch( err => {
-             console.log(err.response)
             dispatch(categoryFetchFail())
          })
     }
@@ -130,10 +124,8 @@ export const categoryFetchById =  (token,id) => {
                     ...response.data[key],
                 })
             }
-            console.log(fetchedData)
             dispatch(categoryFetchByIdSuccess(fetchedData))
          }).catch( err => {
-             console.log(err.response)
             dispatch(categoryFetchByIdFail())
          })
     }
@@ -175,12 +167,8 @@ export const categoryUpdate =  (token,id, name) => {
                 }
          })
         .then(response => {
-            console.log('in fetch data oof customer')
-            console.log(response.data)
             dispatch(categoryUpdateSuccess(true))
         }).catch( err => {
-            console.log('in side catch')
-            console.log(err.response)
             dispatch(categoryUpdateFail(err.response.data.message))
         })
     }
@@ -206,7 +194,6 @@ export const categoryList = (token) => {
             }
             dispatch(categoryFetchSuccess(fetchedData))
         }).catch( err => {
-            console.log(err.response)
             dispatch(categoryFetchFail())
         })
     }
@@ -250,10 +237,8 @@ export const categoryProduct = (token,id) => {
                     ...response.data[key],
                 })
             }
-            console.log('data aaya'+fetchedData)
             dispatch(categoryDetailFetchSuccess(fetchedData))
         }).catch( err => {
-            console.log(err.response)
             dispatch(categoryDetailFetchFail())
         })
     }
@@ -297,10 +282,8 @@ export const subCategoryList = (token,id) => {
                     ...response.data[key],
                 })
             }
-            console.log('sub data aaya'+fetchedData)
             dispatch(subFetchSuccess(fetchedData))
         }).catch( err => {
-            console.log(err.response)
             dispatch(subFetchFail())
         })
     }

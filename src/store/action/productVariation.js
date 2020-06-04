@@ -23,7 +23,6 @@ export const variationFetchFail = () => {
 
 export const productVariation =  (id, token) => {
     return dispatch => {
-        console.log('variation fetch start')
         dispatch(variationFetchStart())
         axios({
             method: 'Get',
@@ -39,10 +38,8 @@ export const productVariation =  (id, token) => {
                 ...response.data,
                 
             })
-            console.log(fetcedProducts)
             dispatch(variationFetchSuccess(fetcedProducts))
         }).catch( err => {
-            console.log(err.response)
             dispatch(variationFetchFail())
         })
     }
@@ -69,7 +66,6 @@ export const similarProductFail = () => {
 
 export const similar =  (id, token) => {
     return dispatch => {
-        console.log('variation fetch start')
         dispatch(similarProductStart())
         axios({
             method: 'Get',
@@ -79,17 +75,14 @@ export const similar =  (id, token) => {
                 }
             })
         .then(response => {
-            console.log(response.data)
             const fetcedProducts = [];
                 for( let key in response.data){
                     fetcedProducts.push({
                          ...response.data[key],
                                 
                 })}
-            console.log('similar'+fetcedProducts)
             dispatch(similarProductSuccess(fetcedProducts))
         }).catch( err => {
-            console.log(err.response)
             dispatch(similarProductFail())
         })
     }

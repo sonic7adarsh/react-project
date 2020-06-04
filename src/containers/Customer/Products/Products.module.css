@@ -19,10 +19,8 @@
 
 
 @media(max-width: 500px){
-    /* .Products{
-        align-items: center;
+    .View{
+        margin-left: 100px;
     }
-    .Product{
-        padding: 5px 5px 5px 5px ;
-    } */
+    
 }

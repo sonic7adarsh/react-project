@@ -5,7 +5,6 @@ import Spinner from '../../../components/UI/Spinner/Spinner'
 
 class CategoryById extends Component{
     render(){
-        console.log('data is here'+this.props.data)
             let products = this.props.data.map(product => (
             <div className={classes.View} key={product.id} onClick={this.props.clicked.bind(this,product.id)}>
                 <div className={classes.Pic}>

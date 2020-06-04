@@ -68,3 +68,11 @@
 .Clicker button:active {
     transform: scale(0.99);
 }
+
+@media(max-width: 500px){
+   .Clicker{
+       margin-top: 80px;
+       margin-right: 20px;
+   }
+    
+}
